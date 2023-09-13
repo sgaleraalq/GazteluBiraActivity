@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_200">
+
+    <LinearLayout
+        android:id="@+id/llGazteluBira"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="50dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/ivLogoDescription"
+                android:src="@drawable/gaztelu_bira_logo" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="26dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvGazteluBira"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gazteluBira"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/black" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSubtitlePlayers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="20dp"
+        android:text="@string/titlePlayers"
+        android:textColor="@color/subtitleColor"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llGazteluBira" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
+        android:fillViewport="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtitlePlayers">
+
+        <TableLayout
+            android:id="@+id/tlPlayersStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="VisualLintBounds">
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btnPlayerName"
+                    style="@style/tvHeader"
+                    android:text="@string/tvPlayerName"
+                    android:paddingHorizontal="20dp"/>
+
+                <Button
+                    android:id="@+id/btnPlayerGoals"
+                    style="@style/tvHeader"
+                    android:text="@string/tvNumberOfGoals" />
+
+                <Button
+                    android:id="@+id/btnPlayerAssists"
+                    style="@style/tvHeader"
+                    android:text="@string/tvNumberOfAssits" />
+
+                <Button
+                    android:id="@+id/btnPlayerMatches"
+                    style="@style/tvHeader"
+                    android:text="@string/tvNumberOfMatches" />
+
+                <Button
+                    android:id="@+id/btnPlayerProportionMatchesGoals"
+                    style="@style/tvHeader"
+                    android:text="@string/tvProportionMatchesGoals" />
+
+            </TableRow>
+        </TableLayout>
+    </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/btnAddNewPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:background="@color/btnAddNewPlayer"
+        android:paddingHorizontal="20dp"
+        android:text="@string/addNewPlayer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

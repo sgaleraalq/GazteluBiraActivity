@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">GazteluBiraActivity</string>
+    <string name="gazteluBira">Gaztelu Bira</string>
+    <string name="league">League</string>
+    <string name="btnMatches">Matches</string>
+    <string name="btnPlayers">Players</string>
+    <string name="title_activity_matches">MatchesActivity</string>
+    <string name="title_activity_players">PlayersActivity</string>
+
+<!--    Players Activity    -->
+            <!--    Main strings    -->
+    <string name="tvNumberOfGoals">Goals</string>
+    <string name="tvNumberOfAssits">Assists</string>
+    <string name="tvNumberOfMatches">Games</string>
+
+    <string name="ivLogoDescription">Gaztelu Bira Logo</string>
+    <string name="titlePlayers">Players stats</string>
+    <string name="tvPlayerName">Player name</string>
+    <string name="addNewPlayer">Add new player</string>
+    <string name="tvProportionMatchesGoals">Goals %</string>
+    <string name="etInsertName">Insert player name</string>
+    <string name="tvNewPlayer">New player</string>
+    <string name="tvDefaultInsert">0</string>
+    <string name="btnAddPlayer">Add player</string>
+
+    <!--    Image descriptions    -->
+    <string name="descriptionFootballBall">Football ball image</string>
+    <string name="descriptionAssistIcon">Assist icon image</string>
+    <string name="descriptionGamesIcon">Games icon image</string>
+    <string name="descriptionMinusIcon">Minus icon image</string>
+    <string name="descriptionPlusIcon">Plus icon image</string>
+
+    <!--    Warnings    -->
+    <string name="warning">Warning</string>
+    <string name="warningEmptyName">Name can\'t be empty</string>
+    <string name="warningIncorrectParameters">The number of games must be greater than 0 if the number of goals or assists is greater than 0</string>
+    <string name="accept">Accept</string>
+
+
+<!--    MATCHES ACTIVITY    -->
+    <string name="tvGamesTitle">Matches played</string>
+    <string name="tvMatchesWin">Matches won</string>
+    <string name="tvMatchesDraw">Tied matches</string>
+    <string name="tvMatchesLost">Lost matches</string>
+    <string name="dash">-</string>
+</resources>

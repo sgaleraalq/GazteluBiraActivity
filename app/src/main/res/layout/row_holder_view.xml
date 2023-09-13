@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <TextView
+        android:id="@+id/tvPlayerName"
+        style="@style/tvCell"
+        tools:text="Haaland"/>
+
+    <TextView
+        android:id="@+id/tvPlayerGoals"
+        style="@style/tvCell"
+        tools:text="10"/>
+
+    <TextView
+        android:id="@+id/tvPlayerAssists"
+        style="@style/tvCell"
+        tools:text="5"/>
+
+    <TextView
+        android:id="@+id/tvPlayerMatches"
+        style="@style/tvCell"
+        tools:text="10"/>
+
+    <TextView
+        android:id="@+id/tvPlayerProportion"
+        style="@style/tvCell"
+        tools:text="5"/>
+
+
+</TableRow>

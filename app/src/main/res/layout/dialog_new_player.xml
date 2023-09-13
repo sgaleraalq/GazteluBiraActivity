@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@color/dialogBackground"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:ignore="TextSizeCheck">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/tvNewPlayer"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:background="@color/teal_700"
+        android:paddingHorizontal="3dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/black" />
+
+    <EditText
+        android:id="@+id/etNewPlayerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:hint="@string/etInsertName"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingHorizontal="16dp"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/descriptionFootballBall"
+            android:src="@drawable/football_ball" />
+
+        <TextView
+            style="@style/tvDialogParameters"
+            android:text="@string/tvNumberOfGoals"
+            tools:ignore="TextSizeCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMinusGoals"
+            style="@style/fabMinusIcon"
+            app:borderWidth="0dp"
+            app:fabCustomSize="30dp"
+            tools:ignore="ImageContrastCheck"/>
+
+        <TextView
+            android:id="@+id/tvDialogGoals"
+            style="@style/tvDialogDefaultParameters"
+            android:layout_width="wrap_content"
+            tools:ignore="TextSizeCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPlusGoals"
+            style="@style/fabPlusIcon"
+            app:borderWidth="0dp"
+            app:fabCustomSize="30dp"
+            tools:ignore="ImageContrastCheck"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/descriptionAssistIcon"
+            android:src="@drawable/football_shoe" />
+
+        <TextView
+            style="@style/tvDialogParameters"
+            android:text="@string/tvNumberOfAssits"
+            tools:ignore="TextSizeCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMinusAssists"
+            style="@style/fabMinusIcon"
+            app:borderWidth="0dp"
+            app:fabCustomSize="30dp"
+            tools:ignore="ImageContrastCheck"/>
+
+        <TextView
+            android:id="@+id/tvDialogAssists"
+            style="@style/tvDialogDefaultParameters"
+            tools:ignore="TextSizeCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPlusAssists"
+            style="@style/fabPlusIcon"
+            app:borderWidth="0dp"
+            app:fabCustomSize="30dp"
+            tools:ignore="ImageContrastCheck" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/descriptionGamesIcon"
+            android:src="@drawable/football_field" />
+
+        <TextView
+            style="@style/tvDialogParameters"
+            android:text="@string/tvNumberOfMatches"
+            tools:ignore="TextSizeCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMinusGames"
+            style="@style/fabMinusIcon"
+            app:borderWidth="0dp"
+            app:fabCustomSize="30dp"
+            tools:ignore="ImageContrastCheck"/>
+
+        <TextView
+            android:id="@+id/tvDialogGames"
+            style="@style/tvDialogDefaultParameters"
+            tools:ignore="TextSizeCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPlusGames"
+            style="@style/fabPlusIcon"
+            app:borderWidth="0dp"
+            app:fabCustomSize="30dp"
+            tools:ignore="ImageContrastCheck"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnDialogAddPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/rounded_button"
+        android:paddingHorizontal="20dp"
+        android:text="@string/btnAddPlayer"
+        android:textSize="20sp" />
+
+</LinearLayout>

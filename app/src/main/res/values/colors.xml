@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <!--   Color for the app bar and other primary UI elements. -->
+    <color name="colorPrimary">#3F51B5</color>
+
+    <!--   A darker variant of the primary color, used for
+           the status bar (on Android 5.0+) and contextual app bars. -->
+    <color name="colorPrimaryDark">#303F9F</color>
+
+    <!--   a secondary color for controls like checkboxes and text fields. -->
+    <color name="colorAccent">#FF4081</color>
+
+
+    <!--    APP COLORS    -->
+    <color name="mainBackground">#00008b</color>
+    <color name="cvBackground">#878787</color>
+    <color name="btnBackgroundMain">#BEB5ECE6</color>
+
+    <!--    PLAYERS ACTIVITY COLORS -->
+    <color name="subtitleColor">#675C5C</color>
+    <color name="btnAddNewPlayer">#CEFF95</color>
+    <color name="dialogBackground">#BEB5ECE6</color>
+    <color name="fabBackground">#B1BDD5</color>
+    <color name="fabRed">#781F1F</color>
+    <color name="fabGreen">#006000</color>
+
+<!--    MATCHES ACTIVITY COLORS -->
+    <color name="tvGamesGreen">#8AFF02</color>
+    <color name="tvGamesYellow">#FFE500</color>
+    <color name="tvGamesRed">#F44336</color>
+    <color name="rvBackground">#F4CE94</color>
+</resources>
