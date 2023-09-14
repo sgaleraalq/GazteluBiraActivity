@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clMatchesStats"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:background="@color/llMatchesStatsBackground"
+    android:background="@color/clExpandableBackground"
     android:paddingHorizontal="16dp"
     android:paddingBottom="16dp">
 
@@ -20,59 +18,70 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvMatchesStatsGoals"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
             android:layout_weight="1"
-            android:elevation="5dp">
+            android:elevation="16dp"
+            app:cardCornerRadius="16dp">
 
             <ImageView
                 android:id="@+id/ivMatchesStatsGoals"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:src="@drawable/football_ball" />
+                android:src="@drawable/football_ball"
+                android:contentDescription="@string/descriptionMatchesStatsGoals"/>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvMatchesStatsAssits"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
             android:layout_weight="1"
-            android:elevation="5dp">
+            android:elevation="16dp"
+            app:cardCornerRadius="16dp">
 
             <ImageView
                 android:id="@+id/ivMatchesStatsAssits"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:src="@drawable/football_shoe" />
+                android:src="@drawable/football_shoe"
+                android:contentDescription="@string/descriptionMatchesStatsAssits"/>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvMatchesStatsPlayers"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
             android:layout_weight="1"
-            android:elevation="5dp">
+            android:elevation="16dp"
+            app:cardCornerRadius="16dp">
 
             <ImageView
                 android:id="@+id/ivMatchesStatsPlayers"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:src="@drawable/group_players" />
+                android:src="@drawable/group_players"
+                android:contentDescription="@string/descriptionMatchesStatsPlayers"/>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvMatchesStatsMVP"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
             android:layout_weight="2"
-            android:elevation="5dp">
+            android:elevation="16dp"
+            app:cardCornerRadius="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,18 +93,19 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/crown_svgrepo_com" />
+                    android:src="@drawable/crown_svgrepo_com"
+                    android:contentDescription="@string/descriptionMVP"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
+                    android:layout_gravity="center|end"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/voteMVP"
                     android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:layout_marginRight="10dp"/>
+                    android:textSize="10sp"
+                    android:layout_marginEnd="10dp"/>
 
             </LinearLayout>
 

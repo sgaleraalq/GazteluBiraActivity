@@ -24,11 +24,15 @@
     <string name="btnAddPlayer">Add player</string>
 
     <!--    Image descriptions    -->
+    <string name="descriptionGazteluBiraLogo">Gaztelu Bira Logo</string>
     <string name="descriptionFootballBall">Football ball image</string>
     <string name="descriptionAssistIcon">Assist icon image</string>
     <string name="descriptionGamesIcon">Games icon image</string>
     <string name="descriptionMinusIcon">Minus icon image</string>
     <string name="descriptionPlusIcon">Plus icon image</string>
+    <string name="descriptionMatchesStatsGoals">Football ball image</string>
+    <string name="descriptionMatchesStatsAssits">Football shoe image</string>
+    <string name="descriptionMatchesStatsPlayers">Group of players image</string>
 
     <!--    Warnings    -->
     <string name="warning">Warning</string>
@@ -45,4 +49,5 @@
     <string name="dash">-</string>
     <string name="MVP">MVP</string>
     <string name="voteMVP">Vote your MVP</string>
+    <string name="descriptionMVP">MVP icon image</string>
 </resources>

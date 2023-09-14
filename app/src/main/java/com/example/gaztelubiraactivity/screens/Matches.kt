@@ -11,5 +11,6 @@ data class Matches(
     val localGoals: Int,
     @SerializedName("awayGoals")
     val visitorGoals: Int,
-    var isSelected: Boolean = false
+    val matchesStats: MatchesStats,
+    var isExpandable: Boolean = false
 )

@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gaztelubiraactivity.R
 
@@ -17,16 +18,15 @@ class MatchesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val ivLocal: ImageView = view.findViewById(R.id.ivMainItemExpandableLogoLocal)
     private val ivVisitor: ImageView = view.findViewById(R.id.ivMainItemExpandableLogoVisitor)
 
-    private val cvResult: CardView = view.findViewById(R.id.cvMainItemExpandable)
+    private val cvMainItemExpandable: CardView = view.findViewById(R.id.cvMainItemExpandable)
+    private val cvResult: CardView = view.findViewById(R.id.cvMainResult)
+
+    inner class MatchesRecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        val matchesStatsRecyclerView: RecyclerView = itemView.findViewById(R.id.rvMatchesStats)
+        val cardView: CardView = itemView.findViewById(R.id.cvMainItemExpandable)
+    }
 
     fun render(match: Matches, view: View) {
-
-        if (match.isSelected) {
-            println("Expand")
-        } else {
-            println("Don't expand")
-        }
-
         tvNameLocal.text = match.local
         tvNameVisitor.text = match.visitor
         tvGoalsLocal.text = match.localGoals.toString()
@@ -41,6 +41,7 @@ class MatchesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
 
 //        Set element background color as color
+        cvMainItemExpandable.setCardBackgroundColor(color)
         cvResult.setCardBackgroundColor(color)
 
         val localLogo = setLogos(tvNameLocal.text.toString())

@@ -9,6 +9,7 @@ import com.example.gaztelubiraactivity.R
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import kotlin.collections.listOf as listOf1
 
 class MatchesActivity : AppCompatActivity() {
 
@@ -17,6 +18,7 @@ class MatchesActivity : AppCompatActivity() {
     private lateinit var tvGamesPointsLost: TextView
 
     private lateinit var jsonFile: String
+    private lateinit var allResults: MutableList<Matches>
 
     private lateinit var rvMatches: RecyclerView
     private lateinit var matchesAdapter: MatchesAdapter
@@ -37,10 +39,11 @@ class MatchesActivity : AppCompatActivity() {
     }
 
     private fun initUI(){
-        tvGamesPointsWin.text = "0"
-        tvGamesPointsDraw.text = "0"
-        tvGamesPointsLost.text = "0"
         getJson()
+        val results = getMatchesStats()
+        tvGamesPointsWin.text = results["wins"].toString()
+        tvGamesPointsDraw.text = results["draws"].toString()
+        tvGamesPointsLost.text = results["losses"].toString()
     }
 
     private fun getJson(){
@@ -62,16 +65,45 @@ class MatchesActivity : AppCompatActivity() {
     }
 
     private fun getGamesFromJson(matchesObject: JsonArray): MutableList<Matches> {
-        var allMatches = mutableListOf<Matches>()
+        allResults = mutableListOf()
         for (match in matchesObject) {
+            var goals = listOf1("Gorka", "Oso", "Nando")
+            var assits = listOf1("Garru", "Xabi")
+            var players = listOf1("Gorka", "Oso", "Nando", "Garru", "Xabi", "Haaland", "Dani", "Jon")
             var newMatch = Matches(
                 match.asJsonObject.get("home").asString,
                 match.asJsonObject.get("away").asString,
                 match.asJsonObject.get("homeGoals").asInt,
-                match.asJsonObject.get("awayGoals").asInt
+                match.asJsonObject.get("awayGoals").asInt,
+                MatchesStats(goals, assits, players.sortedBy { it }, "Haaland")
             )
-            allMatches += newMatch
+            allResults += newMatch
         }
-        return allMatches
+        return allResults
+    }
+
+    private fun getMatchesStats(): MutableMap<String, Int> {
+        var results = mutableMapOf("wins" to 0, "draws" to 0, "losses" to 0)
+
+        for (match in allResults){
+            if (match.local == "Gaztelu Bira") {
+                if (match.localGoals > match.visitorGoals) {
+                    results["wins"] = results["wins"]!! + 1
+                } else if (match.localGoals == match.visitorGoals) {
+                    results["draws"] = results["draws"]!! + 1
+                } else {
+                    results["losses"] = results["losses"]!! + 1
+                }
+            } else {
+                if (match.localGoals < match.visitorGoals) {
+                    results["wins"] = results["wins"]!! + 1
+                } else if (match.localGoals == match.visitorGoals) {
+                    results["draws"] = results["draws"]!! + 1
+                } else {
+                    results["losses"] = results["losses"]!! + 1
+                }
+            }
+        }
+        return results
     }
 }

@@ -3,15 +3,13 @@ package com.example.gaztelubiraactivity.screens
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gaztelubiraactivity.R
 
 class MatchesAdapter(private var matches: List<Matches>) :
     RecyclerView.Adapter<MatchesViewHolder>() {
-//
-//        inner class MatchesRecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-//            val matchesStatsRecyclerView: RecyclerView = itemView.findViewById(R.id.rvMatchesStats)
-//        }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchesViewHolder {
@@ -19,12 +17,32 @@ class MatchesAdapter(private var matches: List<Matches>) :
         return MatchesViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MatchesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MatchesViewHolder, position: Int){
         holder.render(matches[position], holder.itemView)
 
-//        holder.matchesStatsRecyclerView.setHasFixedSize(true)
-//        holder.itemView.setOnClickListener{ onGameSelected(position) }
-    }
+        val holderMatchesStats = holder.MatchesRecyclerViewHolder(holder.itemView)
+        holderMatchesStats.matchesStatsRecyclerView.setHasFixedSize(true)
+        holderMatchesStats.matchesStatsRecyclerView.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
+        val adapter = MatchesStatsAdapter(matches[position].matchesStats)
+        holderMatchesStats.matchesStatsRecyclerView.adapter = adapter
 
+//        Expandable Functionality
+        var isExpandable = matches[position].isExpandable
+        holderMatchesStats.matchesStatsRecyclerView.visibility = if (isExpandable) View.VISIBLE else View.GONE
+
+        holderMatchesStats.cardView.setOnClickListener {
+            isAnyItemExpanded(position)
+            matches[position].isExpandable = !matches[position].isExpandable
+            notifyItemChanged(position)
+        }
+
+    }
     override fun getItemCount() = matches.size
+    private fun isAnyItemExpanded(position: Int){
+        val temp = matches.indexOfFirst { it.isExpandable }
+        if (temp >= 0 && temp != position){
+            matches[temp].isExpandable = false
+            notifyItemChanged(temp)
+        }
+    }
 }

@@ -24,6 +24,8 @@
     <color name="mainBackground">#00008b</color>
     <color name="cvBackground">#878787</color>
     <color name="btnBackgroundMain">#BEB5ECE6</color>
+    <color name="tvPoints">#CACACA</color>
+    <color name="tvGazteluBiraBackground">#BEC1C1C1</color>
 
     <!--    PLAYERS ACTIVITY COLORS -->
     <color name="subtitleColor">#675C5C</color>
@@ -40,4 +42,6 @@
     <color name="rvBackground">#F4CE94</color>
     <color name="llMatchesStatsBackground">#7E6CFF</color>
     <color name="btnMVP">#03A9F4</color>
+    <color name="clExpandableBackground">#BEB5ECE6</color>
+    <color name="dark_gray">#A9A9A9</color>
 </resources>

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/mainBackground">
+    android:background="@color/mainBackground"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvGazteluLogo"
@@ -20,6 +20,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/descriptionGazteluBiraLogo"
             android:src="@drawable/gaztelu_bira_logo" />
 
     </androidx.cardview.widget.CardView>
@@ -38,10 +39,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/tvGazteluBiraBackground"
             android:padding="10dp"
-            android:text="GAZTELU BIRA"
+            android:text="@string/gazteluBira"
+            android:textAllCaps="true"
             android:textSize="50sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </androidx.cardview.widget.CardView>
 
@@ -49,10 +52,10 @@
         android:id="@+id/cvPoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvGazteluBira"
-        android:layout_marginTop="20dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvGazteluBira">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -60,17 +63,17 @@
             android:background="@color/colorPrimary">
 
             <TextView
+                android:id="@+id/tvPoints"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:text="20 pts"
-                android:textSize="15sp"
+                android:layout_gravity="start|center"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
                 android:textAllCaps="true"
-                android:layout_gravity="left|center"
-                android:textColor="@color/white"/>
+                android:textColor="@color/tvPoints"
+                android:textSize="15sp" />
 
         </LinearLayout>
-
 
 
     </androidx.cardview.widget.CardView>
@@ -87,13 +90,11 @@
         <Button
             android:id="@+id/btnMatches"
             style="@style/btnsMain"
-            android:layout_marginTop="20dp"
             android:text="@string/btnMatches" />
 
         <Button
             android:id="@+id/btnPlayers"
             style="@style/btnsMain"
-            android:layout_marginTop="20dp"
             android:text="@string/btnPlayers" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

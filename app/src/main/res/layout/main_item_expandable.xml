@@ -3,6 +3,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvMainItemExpandable"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
@@ -13,11 +14,11 @@
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cvMainItemExpandable"
+            android:id="@+id/cvMainResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/tvGamesGreen"
             app:cardCornerRadius="22dp"
+            app:cardBackgroundColor="@color/tvGamesGreen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -132,7 +133,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvMainItemExpandable">
+            app:layout_constraintTop_toBottomOf="@+id/cvMainResult">
 
         </androidx.recyclerview.widget.RecyclerView>
 
