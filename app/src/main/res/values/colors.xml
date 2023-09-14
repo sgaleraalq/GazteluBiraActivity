@@ -38,4 +38,6 @@
     <color name="tvGamesYellow">#FFE500</color>
     <color name="tvGamesRed">#F44336</color>
     <color name="rvBackground">#F4CE94</color>
+    <color name="llMatchesStatsBackground">#7E6CFF</color>
+    <color name="btnMVP">#03A9F4</color>
 </resources>

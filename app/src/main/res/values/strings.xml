@@ -43,4 +43,6 @@
     <string name="tvMatchesDraw">Tied matches</string>
     <string name="tvMatchesLost">Lost matches</string>
     <string name="dash">-</string>
+    <string name="MVP">MVP</string>
+    <string name="voteMVP">Vote your MVP</string>
 </resources>
