@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gaztelubiraactivity.R
 
@@ -27,14 +26,12 @@ class MatchesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     fun render(match: Matches, view: View) {
-        tvNameLocal.text = match.local
-        tvNameVisitor.text = match.visitor
-        tvGoalsLocal.text = match.localGoals.toString()
-        tvGoalsVisitor.text = match.visitorGoals.toString()
+        tvNameLocal.text = match.home
+        tvNameVisitor.text = match.away
+        tvGoalsLocal.text = match.homeGoals.toString()
+        tvGoalsVisitor.text = match.awayGoals.toString()
 
-        var result = getResult(match)
-
-        var color = when (result) {
+        val color = when (getResult(match)) {
             'W' -> ContextCompat.getColor(view.context, R.color.tvGamesGreen)
             'D' -> ContextCompat.getColor(view.context, R.color.tvGamesYellow)
             else -> ContextCompat.getColor(view.context, R.color.tvGamesRed)
@@ -52,7 +49,7 @@ class MatchesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
 
     private fun getResult(match: Matches): Char {
-        if (match.localGoals == match.visitorGoals) {
+        if (match.homeGoals == match.awayGoals) {
             return 'D'
         }
         return if (tvNameLocal.text == "Gaztelu Bira") {
@@ -63,7 +60,7 @@ class MatchesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     private fun getLocalResult(match: Matches): Char {
-        return if (match.localGoals > match.visitorGoals) {
+        return if (match.homeGoals > match.awayGoals) {
             'W'
         } else {
             'L'
@@ -71,7 +68,7 @@ class MatchesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     private fun getVisitorResult(match: Matches): Char {
-        return if (match.localGoals < match.visitorGoals) {
+        return if (match.homeGoals < match.awayGoals) {
             'W'
         } else {
             'L'

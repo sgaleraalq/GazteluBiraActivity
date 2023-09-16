@@ -1,16 +1,15 @@
 package com.example.gaztelubiraactivity.screens
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Matches(
-    @SerializedName("home")
-    val local: String,
-    @SerializedName("away")
-    val visitor: String,
-    @SerializedName("homeGoals")
-    val localGoals: Int,
-    @SerializedName("awayGoals")
-    val visitorGoals: Int,
-    val matchesStats: MatchesStats,
+    val home: String,
+    val away: String,
+    val homeGoals: Int,
+    val awayGoals: Int,
+    val scorers: List<String>,
+    val assistants: List<String>,
+    val players: List<String>,
     var isExpandable: Boolean = false
 )

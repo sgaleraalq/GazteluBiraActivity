@@ -33,6 +33,8 @@
     <string name="descriptionMatchesStatsGoals">Football ball image</string>
     <string name="descriptionMatchesStatsAssits">Football shoe image</string>
     <string name="descriptionMatchesStatsPlayers">Group of players image</string>
+    <string name="descriptionLogoLocal">Local logo</string>
+    <string name="descriptionLogoVisitor">Visitor logo</string>
 
     <!--    Warnings    -->
     <string name="warning">Warning</string>

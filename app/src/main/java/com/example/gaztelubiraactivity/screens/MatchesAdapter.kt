@@ -3,7 +3,6 @@ package com.example.gaztelubiraactivity.screens
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gaztelubiraactivity.R
@@ -23,11 +22,12 @@ class MatchesAdapter(private var matches: List<Matches>) :
         val holderMatchesStats = holder.MatchesRecyclerViewHolder(holder.itemView)
         holderMatchesStats.matchesStatsRecyclerView.setHasFixedSize(true)
         holderMatchesStats.matchesStatsRecyclerView.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
-        val adapter = MatchesStatsAdapter(matches[position].matchesStats)
+        val toAdapt = MatchesStats(matches[position].scorers, matches[position].assistants, matches[position].players)
+        val adapter = MatchesStatsAdapter(toAdapt)
         holderMatchesStats.matchesStatsRecyclerView.adapter = adapter
 
 //        Expandable Functionality
-        var isExpandable = matches[position].isExpandable
+        val isExpandable = matches[position].isExpandable
         holderMatchesStats.matchesStatsRecyclerView.visibility = if (isExpandable) View.VISIBLE else View.GONE
 
         holderMatchesStats.cardView.setOnClickListener {
@@ -44,5 +44,10 @@ class MatchesAdapter(private var matches: List<Matches>) :
             matches[temp].isExpandable = false
             notifyItemChanged(temp)
         }
+    }
+
+    fun clearData() {
+        matches = emptyList() // Vaciar la lista de datos
+        notifyDataSetChanged() // Notificar al RecyclerView que los datos han cambiado
     }
 }
