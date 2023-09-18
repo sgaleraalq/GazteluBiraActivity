@@ -35,7 +35,7 @@
     <color name="fabRed">#781F1F</color>
     <color name="fabGreen">#006000</color>
 
-<!--    MATCHES ACTIVITY COLORS -->
+    <!--    MATCHES ACTIVITY COLORS -->
     <color name="tvGamesGreen">#8AFF02</color>
     <color name="tvGamesYellow">#FFE500</color>
     <color name="tvGamesRed">#F44336</color>
@@ -44,4 +44,5 @@
     <color name="btnMVP">#03A9F4</color>
     <color name="clExpandableBackground">#BEB5ECE6</color>
     <color name="dark_gray">#A9A9A9</color>
+    <color name="pbMatchesColor">#343B63</color>
 </resources>

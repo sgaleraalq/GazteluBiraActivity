@@ -61,7 +61,7 @@ class MatchesStatsViewHolder (view: View):  RecyclerView.ViewHolder(view) {
             else -> {
                 dialogTitle.text = "Players"
                 dialogImage.setImageResource(R.drawable.group_players)
-                dialogList.adapter = ArrayAdapter(itemView.context, R.layout.players_in_list, stats.players.toList()  )
+                dialogList.adapter = ArrayAdapter(itemView.context, R.layout.players_in_list, stats.players.sortedBy { it }.toList()  )
             }
         }
         dialog.show()

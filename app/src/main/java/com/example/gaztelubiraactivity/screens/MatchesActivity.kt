@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gaztelubiraactivity.R
+import com.example.gaztelubiraactivity.BuildConfig
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
@@ -29,9 +30,8 @@ class MatchesActivity : AppCompatActivity() {
     private lateinit var rvMatches: RecyclerView
     private var matchesAdapter: MatchesAdapter? = null
 
-    private val supaBaseUrl: String = "https://onobmlegkylrcgeevzls.supabase.co"
-    private val supaBaseKey: String =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ub2JtbGVna3lscmNnZWV2emxzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQ0NTI5OTAsImV4cCI6MjAxMDAyODk5MH0.rsZu-HKj2HiZWvatYNk5_XT6ZmHDXPPc0-pQH51arqs"
+    private val supaBaseUrl: String = BuildConfig.SUPABASE_URL
+    private val supaBaseKey: String = BuildConfig.SUPABASE_KEY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +79,7 @@ class MatchesActivity : AppCompatActivity() {
         val json = Json { var ignoreUnknownKeys = true }
         try {
             allResults = json.decodeFromString(supabaseResponse.body.toString())
-            matchesAdapter = MatchesAdapter(allResults)
+            matchesAdapter = MatchesAdapter(allResults.sortedBy { it.id })
             rvMatches.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             rvMatches.adapter = matchesAdapter
             spinner.visibility = View.GONE

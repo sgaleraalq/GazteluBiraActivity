@@ -1,3 +1,7 @@
+import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -19,6 +23,17 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildFeatures {
+            buildConfig = true
+        }
+
+        val localProperties = Properties()
+        val propertyFile = FileInputStream(rootProject.file("local.properties"))
+        localProperties.load(propertyFile)
+        buildConfigField("String", "SUPABASE_URL", localProperties.getProperty("SUPABASE_URL"))
+        buildConfigField("String", "SUPABASE_KEY", localProperties.getProperty("SUPABASE_ANON_KEY"))
+
     }
 
     buildTypes {

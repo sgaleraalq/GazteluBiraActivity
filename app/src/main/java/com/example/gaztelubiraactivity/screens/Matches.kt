@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Matches(
+    val id: Int,
     val home: String,
     val away: String,
     val homeGoals: Int,
