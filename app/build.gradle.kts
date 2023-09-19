@@ -67,8 +67,16 @@ android {
 
 dependencies {
     implementation("io.github.jan-tennert.supabase:postgrest-kt:1.3.0")
-    implementation("io.ktor:ktor-client-cio:2.3.3")
+    implementation("io.ktor:ktor-client-cio:2.3.4")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation("io.github.jan-tennert.supabase:gotrue-kt:1.3.0")
+
+    implementation("io.github.jan-tennert.supabase:storage-kt:1.3.0")
+    implementation("io.ktor:ktor-client-android:2.3.4")
+    implementation("io.ktor:ktor-client-core:2.3.4")
+    implementation("io.ktor:ktor-utils:2.3.4")
+
+
 
     implementation("com.google.code.gson:gson:2.8.9")
     implementation("androidx.core:core-ktx:1.12.0")
@@ -86,6 +94,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.datastore:datastore-core-android:1.1.0-alpha05")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

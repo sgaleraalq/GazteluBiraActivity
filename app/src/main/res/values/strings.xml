@@ -7,11 +7,19 @@
     <string name="title_activity_matches">MatchesActivity</string>
     <string name="title_activity_players">PlayersActivity</string>
 
-<!--    Players Activity    -->
-            <!--    Main strings    -->
+    <!--    Log in Activity    -->
+    <string name="etEmail">Email</string>
+    <string name="etPassword">Password</string>
+    <string name="btnRegister">Register</string>
+    <string name="btnLogIn">Log in</string>
+    <string name="tvLogInApp">Log In App</string>
+
+
+    <!--    Players Activity    -->
+    <!--    Main strings    -->
     <string name="tvNumberOfGoals">Goals</string>
     <string name="tvNumberOfAssits">Assists</string>
-    <string name="tvNumberOfMatches">Games</string>
+    <string name="tvNumberOfMatches">Matches</string>
 
     <string name="ivLogoDescription">Gaztelu Bira Logo</string>
     <string name="titlePlayers">Players stats</string>
@@ -43,7 +51,7 @@
     <string name="accept">Accept</string>
 
 
-<!--    MATCHES ACTIVITY    -->
+    <!--    MATCHES ACTIVITY    -->
     <string name="tvGamesTitle">Matches played</string>
     <string name="tvMatchesWin">Matches won</string>
     <string name="tvMatchesDraw">Tied matches</string>
@@ -52,4 +60,6 @@
     <string name="MVP">MVP</string>
     <string name="voteMVP">Vote your MVP</string>
     <string name="descriptionMVP">MVP icon image</string>
+    <string name="selectMVP">Select your MVP</string>
+    <string name="sendMVP">Send MVP</string>
 </resources>

@@ -69,64 +69,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llGazteluBira" />
 
-    <HorizontalScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="16dp"
-        android:fillViewport="true"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSubtitlePlayers">
 
-        <TableLayout
-            android:id="@+id/tlPlayersStats"
+        <HorizontalScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="VisualLintBounds">
+            android:layout_height="wrap_content">
 
-            <TableRow>
+            <TableLayout
+                android:id="@+id/tlPlayersStats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="VisualLintBounds">
 
-                <Button
-                    android:id="@+id/btnPlayerName"
-                    style="@style/tvHeader"
-                    android:text="@string/tvPlayerName"
-                    android:paddingHorizontal="20dp"/>
+                <TableRow>
 
-                <Button
-                    android:id="@+id/btnPlayerGoals"
-                    style="@style/tvHeader"
-                    android:text="@string/tvNumberOfGoals" />
+                    <Button
+                        android:id="@+id/btnPlayerName"
+                        style="@style/tvHeader"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/tvPlayerName" />
 
-                <Button
-                    android:id="@+id/btnPlayerAssists"
-                    style="@style/tvHeader"
-                    android:text="@string/tvNumberOfAssits" />
+                    <Button
+                        android:id="@+id/btnPlayerGoals"
+                        style="@style/tvHeader"
+                        android:text="@string/tvNumberOfGoals" />
 
-                <Button
-                    android:id="@+id/btnPlayerMatches"
-                    style="@style/tvHeader"
-                    android:text="@string/tvNumberOfMatches" />
+                    <Button
+                        android:id="@+id/btnPlayerAssists"
+                        style="@style/tvHeader"
+                        android:text="@string/tvNumberOfAssits" />
 
-                <Button
-                    android:id="@+id/btnPlayerProportionMatchesGoals"
-                    style="@style/tvHeader"
-                    android:text="@string/tvProportionMatchesGoals" />
+                    <Button
+                        android:id="@+id/btnPlayerMatches"
+                        style="@style/tvHeader"
+                        android:text="@string/tvNumberOfMatches" />
 
-            </TableRow>
-        </TableLayout>
-    </HorizontalScrollView>
+                    <Button
+                        android:id="@+id/btnPlayerProportionMatchesGoals"
+                        style="@style/tvHeader"
+                        android:text="@string/tvProportionMatchesGoals" />
 
-    <Button
-        android:id="@+id/btnAddNewPlayer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:background="@color/btnAddNewPlayer"
-        android:paddingHorizontal="20dp"
-        android:text="@string/addNewPlayer"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+                </TableRow>
+            </TableLayout>
+        </HorizontalScrollView>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

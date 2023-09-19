@@ -1,0 +1,15 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo del radio button -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <!-- Color de fondo del radio button -->
+            <solid android:color="#ACA8A8" />
+            <!-- Borde del radio button -->
+            <stroke
+                android:width="2dp"
+                android:color="#000000" /> <!-- Ancho y color del borde -->
+            <!-- Radio button -->
+            <corners android:radius="4dp" /> <!-- Radio de las esquinas -->
+        </shape>
+    </item>
+</layer-list>
