@@ -7,11 +7,23 @@
     android:background="@color/mainBackground"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tvLoggedAs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Logged as: Haaland"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvGazteluLogo"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         app:cardCornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +97,8 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvPoints">
+        app:layout_constraintTop_toBottomOf="@+id/cvPoints"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/btnMatches"
@@ -96,6 +109,16 @@
             android:id="@+id/btnPlayers"
             style="@style/btnsMain"
             android:text="@string/btnPlayers" />
+
+        <Button
+            android:id="@+id/btnLogOut"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/orange"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:text="@string/logOut" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

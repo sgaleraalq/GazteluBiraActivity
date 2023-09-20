@@ -26,6 +26,7 @@
     <color name="btnBackgroundMain">#BEB5ECE6</color>
     <color name="tvPoints">#CACACA</color>
     <color name="tvGazteluBiraBackground">#BEC1C1C1</color>
+    <color name="orange">#FF9800</color>
 
     <!--    PLAYERS ACTIVITY COLORS -->
     <color name="subtitleColor">#675C5C</color>
