@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.gotrue
 import io.github.jan.supabase.gotrue.providers.builtin.Email
+import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -69,6 +71,7 @@ class LogInActivity : AppCompatActivity() {
     private fun initUI() {
         SupabaseManager.initialize(this)
         startClient()
+        connectUserToEmail()
     }
 
     private fun startClient() {
@@ -81,6 +84,7 @@ class LogInActivity : AppCompatActivity() {
                 email = etEmail.text.toString()
                 password = etPassword.text.toString()
             }
+//            connectUserToEmail()
             logInUser()
         } catch (e: Exception) {
             showAlert(R.string.errorSignUp, R.string.userNotRegistered)
@@ -99,14 +103,6 @@ class LogInActivity : AppCompatActivity() {
         }
     }
 
-    private fun showAlert(errorMessage: Int, message: Int) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(errorMessage)
-        builder.setMessage(message)
-        builder.setPositiveButton("Accept") { _, _ -> clearFields() }
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
-    }
     private fun clearFields(){
         etPassword.text.clear()
     }
@@ -117,17 +113,38 @@ class LogInActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
-
+    private fun showAlert(errorMessage: Int, message: Int) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(errorMessage)
+        builder.setMessage(message)
+        builder.setPositiveButton("Accept") { _, _ -> clearFields() }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
     private fun showMainAsGuest() {
         val builder = AlertDialog.Builder(this)
 
         builder.setTitle(R.string.joinAsGuest)
-        builder.setMessage(R.string.guestMessage)
+        val combinedMessage = getString(R.string.guestMessage) + "\n\n" + getString(R.string.notAbleToVote)
+        builder.setMessage(combinedMessage)
 
         builder.setPositiveButton(R.string.accept) { _, _ -> showMain("Guest", ProviderType.BASIC) }
         builder.setNegativeButton(R.string.cancel, null)
 
         val alertDialog = builder.create()
         alertDialog.show()
+    }
+
+    private fun connectUserToEmail(){
+        lifecycleScope.launch {
+            val nameAndEmail = client.postgrest["user_auth"].select().decodeList<UserAndEmail>()
+            linkNameToEmail(nameAndEmail)
+        }
+    }
+
+    private fun linkNameToEmail(emailList: List<UserAndEmail>) {
+        for (element in emailList.filter { it.email == null }){
+            println(element)
+        }
     }
 }

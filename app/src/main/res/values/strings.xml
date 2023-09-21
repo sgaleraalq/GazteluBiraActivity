@@ -26,6 +26,7 @@
     <string name="btnGuest">Join as a guest</string>
     <string name="joinAsGuest">Join as a guest</string>
     <string name="guestMessage">You will join the app as a guest</string>
+    <string name="notAbleToVote">If you click "Accept", you will not be able to vote</string>
 
 
     <!--    Players Activity    -->
@@ -33,10 +34,12 @@
     <string name="tvNumberOfGoals">Goals</string>
     <string name="tvNumberOfAssits">Assists</string>
     <string name="tvNumberOfMatches">Matches</string>
+    <string name="tvSortBy">Sort by</string>
 
     <string name="ivLogoDescription">Gaztelu Bira Logo</string>
     <string name="titlePlayers">Players stats</string>
     <string name="tvPlayerName">Player name</string>
+    <string name="tvPosition">Position</string>
     <string name="addNewPlayer">Add new player</string>
     <string name="tvProportionMatchesGoals">Goals %</string>
     <string name="etInsertName">Insert player name</string>
@@ -76,4 +79,9 @@
     <string name="descriptionMVP">MVP icon image</string>
     <string name="selectMVP">Select your MVP</string>
     <string name="sendMVP">Send MVP</string>
+
+
+<!--    SupaBase Strings    -->
+    <string name="conexionErrorTitle">Conexion error</string>
+    <string name="conexionErrorMessage">There was an error connecting to the database</string>
 </resources>

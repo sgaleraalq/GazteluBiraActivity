@@ -58,16 +58,38 @@
 
     <TextView
         android:id="@+id/tvSubtitlePlayers"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="40dp"
         android:paddingHorizontal="20dp"
         android:text="@string/titlePlayers"
         android:textColor="@color/subtitleColor"
-        android:textSize="25sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llGazteluBira" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvStatsShown"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/mainBackground"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llGazteluBira">
+
+        <Button
+            android:id="@+id/btnStats"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:text="@string/tvNumberOfGoals"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </androidx.cardview.widget.CardView>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -77,49 +99,52 @@
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubtitlePlayers">
+        app:layout_constraintTop_toBottomOf="@+id/cvStatsShown">
 
-        <HorizontalScrollView
+        <TableLayout
+            android:id="@+id/tlPlayersStats"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            tools:ignore="VisualLintBounds">
 
-            <TableLayout
-                android:id="@+id/tlPlayersStats"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:ignore="VisualLintBounds">
+            <TableRow>
 
-                <TableRow>
+                <TextView
+                    android:id="@+id/tvPosition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_position_header"
+                    android:paddingHorizontal="20dp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/btnPlayerName"
-                        style="@style/tvHeader"
-                        android:paddingHorizontal="20dp"
-                        android:text="@string/tvPlayerName" />
+                <TextView
+                    android:id="@+id/tvPlayerName"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:background="@drawable/header_background"
+                    android:paddingHorizontal="20dp"
+                    android:text="@string/tvPlayerName"
+                    android:textAllCaps="true"
+                    android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/btnPlayerGoals"
-                        style="@style/tvHeader"
-                        android:text="@string/tvNumberOfGoals" />
-
-                    <Button
-                        android:id="@+id/btnPlayerAssists"
-                        style="@style/tvHeader"
-                        android:text="@string/tvNumberOfAssits" />
-
-                    <Button
-                        android:id="@+id/btnPlayerMatches"
-                        style="@style/tvHeader"
-                        android:text="@string/tvNumberOfMatches" />
-
-                    <Button
-                        android:id="@+id/btnPlayerProportionMatchesGoals"
-                        style="@style/tvHeader"
-                        android:text="@string/tvProportionMatchesGoals" />
-
-                </TableRow>
-            </TableLayout>
-        </HorizontalScrollView>
+                <Button
+                    android:id="@+id/tvPlayerStats"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:background="@drawable/header_background"
+                    android:paddingHorizontal="20dp"
+                    android:text="@string/tvNumberOfGoals"
+                    android:textAllCaps="true"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
     </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

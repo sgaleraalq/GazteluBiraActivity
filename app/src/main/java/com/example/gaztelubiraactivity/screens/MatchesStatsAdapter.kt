@@ -13,7 +13,7 @@ class MatchesStatsAdapter(private val matchesStats: MatchesStats) :
     }
 
     override fun onBindViewHolder(holder: MatchesStatsViewHolder, position: Int) {
-        holder.render(matchesStats, holder.itemView)
+        holder.render(matchesStats)
     }
 
     override fun getItemCount() = 1

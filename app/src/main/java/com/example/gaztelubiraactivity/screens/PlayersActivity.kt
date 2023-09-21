@@ -1,37 +1,41 @@
 package com.example.gaztelubiraactivity.screens
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.gaztelubiraactivity.BuildConfig
 import com.example.gaztelubiraactivity.R
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.postgrest.Postgrest
+import com.example.gaztelubiraactivity.SupabaseManager
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.PostgrestResult
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import android.app.Dialog
+import android.widget.RadioButton
+import androidx.appcompat.app.AlertDialog
 
 
 class PlayersActivity : ComponentActivity() {
 
     private lateinit var tlPlayerStats: TableLayout
 
-    private lateinit var btnSortName: Button
-    private lateinit var btnSortGoals: Button
-    private lateinit var btnSortAssists: Button
-    private lateinit var btnSortGamesPlayed: Button
-    private lateinit var btnSortProportionMatchesGoals: Button
-
-    private val SupaBaseURL: String = BuildConfig.SUPABASE_URL
-    private val SupaBaseKey: String = BuildConfig.SUPABASE_KEY
+    private lateinit var tvPositionRow: TextView
+    private lateinit var tvPlayerName: TextView
+    private lateinit var tvPlayerStats: TextView
+    private lateinit var btnStats: Button
 
     private lateinit var playerStats: List<Player>
 
+//    Sort stats dialog variables
+    private lateinit var rbGoals: RadioButton
+    private lateinit var rbAssists: RadioButton
+    private lateinit var rbGamesPlayed: RadioButton
+    private lateinit var rbProportionMatchesGoals: RadioButton
+    private lateinit var rbMVP: RadioButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,29 +51,66 @@ class PlayersActivity : ComponentActivity() {
     }
 
     private fun initComponents() {
-        btnSortName = findViewById(R.id.btnPlayerName)
-        btnSortGoals = findViewById(R.id.btnPlayerGoals)
-        btnSortAssists = findViewById(R.id.btnPlayerAssists)
-        btnSortGamesPlayed = findViewById(R.id.btnPlayerMatches)
-        btnSortProportionMatchesGoals = findViewById(R.id.btnPlayerProportionMatchesGoals)
+        tvPositionRow = findViewById(R.id.tvPosition)
+        tvPlayerName = findViewById(R.id.tvPlayerName)
+        tvPlayerStats = findViewById(R.id.tvPlayerStats)
+        btnStats = findViewById(R.id.btnStats)
         tlPlayerStats = findViewById(R.id.tlPlayersStats)
     }
 
     private fun initListeners() {
-        btnSortName.setOnClickListener { sortElements("name") }
-        btnSortGoals.setOnClickListener { sortElements("goals") }
-        btnSortAssists.setOnClickListener { sortElements("assists") }
-        btnSortGamesPlayed.setOnClickListener { sortElements("gamesPlayed") }
-        btnSortProportionMatchesGoals.setOnClickListener { sortElements("proportionMatchesGoals") }
+        btnStats.setOnClickListener {
+            showSortStats()
+        }
+    }
+
+    private fun showSortStats(){
+        val sortStatsDialog = Dialog(this)
+        sortStatsDialog.setContentView(R.layout.stats_radio_group)
+        initDialogComponents(sortStatsDialog)
+        initDialogListeners(sortStatsDialog)
+        sortStatsDialog.show()
+    }
+
+    private fun initDialogComponents(dialog: Dialog){
+        rbGoals = dialog.findViewById(R.id.rbGoals)
+        rbAssists = dialog.findViewById(R.id.rbAssists)
+        rbGamesPlayed = dialog.findViewById(R.id.rbGamesPlayed)
+        rbProportionMatchesGoals = dialog.findViewById(R.id.rbProportion)
+        rbMVP = dialog.findViewById(R.id.rbMVP)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initDialogListeners(dialog: Dialog){
+        rbGoals.setOnClickListener {
+            sortStats("goals")
+            dialog.dismiss()
+            btnStats.text = "Goals"
+        }
+        rbAssists.setOnClickListener {
+            sortStats("assists")
+            dialog.dismiss()
+            btnStats.text = "Assists"
+        }
+        rbGamesPlayed.setOnClickListener {
+            sortStats("gamesPlayed")
+            dialog.dismiss()
+            btnStats.text = "Matches"
+        }
+        rbProportionMatchesGoals.setOnClickListener {
+            sortStats("proportionMatchesGoals")
+            dialog.dismiss()
+            btnStats.text = "Goals %"
+        }
+        rbMVP.setOnClickListener {
+            sortStats("MVP")
+            dialog.dismiss()
+            btnStats.text = "MVP"
+        }
     }
 
     private fun getData(){
-        val client = createSupabaseClient(
-            SupaBaseURL,
-            SupaBaseKey
-        ) {
-            install(Postgrest)
-        }
+        val client = SupabaseManager.client
         lifecycleScope.launch {
             val supabaseResponse = client.postgrest["players"].select()
             getResultsFromJson(supabaseResponse)
@@ -79,17 +120,26 @@ class PlayersActivity : ComponentActivity() {
     private fun getResultsFromJson(supabaseResponse: PostgrestResult) {
         val json = Json { var ignoreUnknownKeys = true }
         try {
-            playerStats = json.decodeFromString(supabaseResponse.body.toString())
+            playerStats = json.decodeFromString<List<Player>>(supabaseResponse.body.toString()).sortedBy { it.name }
 
 //            To get the proportion of goals per match
             updateProportions()
 
 //            Insert all players into table
-            insertPlayerToTable()
+            sortStats()
 
         } catch (e: Exception) {
-            e.printStackTrace()
+            showConexionError()
         }
+    }
+
+    private fun showConexionError(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.conexionErrorTitle)
+        builder.setMessage(R.string.conexionErrorMessage)
+        builder.setPositiveButton("Accept", null)
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
     private fun updateProportions(){
@@ -102,47 +152,69 @@ class PlayersActivity : ComponentActivity() {
         }
     }
 
-    private fun insertPlayerToTable(){
-        playerStats = playerStats.sortedBy { it.name }
-        for (player in playerStats){
-            val view = layoutInflater.inflate(R.layout.row_holder_view, tlPlayerStats, false)
-            val rowViewHolder = RowViewHolder(view, player)
-            rowViewHolder.render(player)
-            tlPlayerStats.addView(view)
+    private fun sortStats(value: String = "goals") {
+        playerStats = when (value){
+            "goals" -> playerStats.sortedByDescending { it.goals }
+            "assists" -> playerStats.sortedByDescending { it.assists }
+            "gamesPlayed" -> playerStats.sortedByDescending { it.gamesPlayed }
+            "proportionMatchesGoals" -> playerStats.sortedByDescending { it.proportionMatchesGoals }
+//            TODO MVP
+            else -> playerStats.sortedByDescending { it.name }
+        }
+        insertPlayersToTable(value)
+        changeRowLabel(value)
+    }
+
+    private fun insertPlayersToTable(value: String = "goals"){
+        tlPlayerStats.removeViews(1, tlPlayerStats.childCount - 1)
+        var position = 1
+
+        for (player in playerStats) {
+            val customRowViewHolder = layoutInflater.inflate(R.layout.row_holder_view, null) as TableRow
+            val tvPosition: TextView = customRowViewHolder.findViewById(R.id.tvPosition)
+            val tvPlayerName: TextView = customRowViewHolder.findViewById(R.id.tvPlayerName)
+            val tvPlayerStats: TextView = customRowViewHolder.findViewById(R.id.tvPlayerStats)
+
+            when (position) {
+                1 -> {
+                    tvPosition.setBackgroundResource(R.drawable.golden_cell_background)
+                    tvPlayerName.setBackgroundResource(R.drawable.golden_cell_background)
+                    tvPlayerStats.setBackgroundResource(R.drawable.golden_cell_background)
+                }
+                2 -> {
+                    tvPosition.setBackgroundResource(R.drawable.silver_cell_background)
+                    tvPlayerName.setBackgroundResource(R.drawable.silver_cell_background)
+                    tvPlayerStats.setBackgroundResource(R.drawable.silver_cell_background)
+                }
+                3 -> {
+                    tvPosition.setBackgroundResource(R.drawable.bronze_cell_background)
+                    tvPlayerName.setBackgroundResource(R.drawable.bronze_cell_background)
+                    tvPlayerStats.setBackgroundResource(R.drawable.bronze_cell_background)
+                }
+            }
+
+            tvPosition.text = position.toString()
+            tvPlayerName.text = player.name
+            tvPlayerStats.text = when (value){
+                "goals" -> player.goals.toString()
+                "assists" -> player.assists.toString()
+                "gamesPlayed" -> player.gamesPlayed.toString()
+                else -> player.proportionMatchesGoals.toString()
+            }
+            // Agregar la fila al TableLayout
+            tlPlayerStats.addView(customRowViewHolder)
+            position++
         }
     }
 
-    private fun sortElements(value: String){
-        when (value) {
-            "name" -> {
-                playerStats = playerStats.sortedBy { it.name }
-                tlPlayerStats.removeViews(1, tlPlayerStats.childCount - 1)
-                insertPlayerToTable()
-            }
-
-            "goals" -> {
-                playerStats = playerStats.sortedByDescending { it.goals }
-                tlPlayerStats.removeViews(1, tlPlayerStats.childCount - 1)
-                insertPlayerToTable()
-            }
-
-            "assists" -> {
-                playerStats = playerStats.sortedByDescending { it.assists }
-                tlPlayerStats.removeViews(1, tlPlayerStats.childCount - 1)
-                insertPlayerToTable()
-            }
-
-            "gamesPlayed" -> {
-                playerStats = playerStats.sortedByDescending { it.gamesPlayed }
-                tlPlayerStats.removeViews(1, tlPlayerStats.childCount - 1)
-                insertPlayerToTable()
-            }
-
-            else -> {
-                playerStats = playerStats.sortedByDescending { it.proportionMatchesGoals }
-                tlPlayerStats.removeViews(1, tlPlayerStats.childCount - 1)
-                insertPlayerToTable()
-            }
+    @SuppressLint("SetTextI18n")
+    private fun changeRowLabel(value: String = "goals") {
+        when (value){
+            "goals" -> tvPlayerStats.text = "Goals"
+            "assists" -> tvPlayerStats.text = "Assists"
+            "gamesPlayed" -> tvPlayerStats.text = "Matches"
+            "proportionMatchesGoals" -> tvPlayerStats.text = "Goals %"
+            else -> tvPlayerStats.text = "MVP"
         }
     }
 }

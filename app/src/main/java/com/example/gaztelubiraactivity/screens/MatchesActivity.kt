@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gaztelubiraactivity.R
 import com.example.gaztelubiraactivity.BuildConfig
+import com.example.gaztelubiraactivity.SupabaseManager
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
@@ -30,8 +31,6 @@ class MatchesActivity : AppCompatActivity() {
     private lateinit var rvMatches: RecyclerView
     private var matchesAdapter: MatchesAdapter? = null
 
-    private val supaBaseUrl: String = BuildConfig.SUPABASE_URL
-    private val supaBaseKey: String = BuildConfig.SUPABASE_KEY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,12 +58,7 @@ class MatchesActivity : AppCompatActivity() {
     }
 
     private fun getClient(): SupabaseClient {
-        return createSupabaseClient(
-            supaBaseUrl,
-            supaBaseKey
-        ) {
-            install(Postgrest)
-        }
+        return SupabaseManager.client
     }
 
     private fun getData() {

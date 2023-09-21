@@ -22,6 +22,7 @@
 
     <!--    APP COLORS    -->
     <color name="mainBackground">#00008b</color>
+    <color name="secondBackground">#1C1CD5</color>
     <color name="cvBackground">#878787</color>
     <color name="btnBackgroundMain">#BEB5ECE6</color>
     <color name="tvPoints">#CACACA</color>
@@ -29,12 +30,15 @@
     <color name="orange">#FF9800</color>
 
     <!--    PLAYERS ACTIVITY COLORS -->
-    <color name="subtitleColor">#675C5C</color>
+    <color name="subtitleColor">#5A4646</color>
     <color name="btnAddNewPlayer">#CEFF95</color>
     <color name="dialogBackground">#BEB5ECE6</color>
     <color name="fabBackground">#B1BDD5</color>
     <color name="fabRed">#781F1F</color>
     <color name="fabGreen">#006000</color>
+    <color name="gold">#ffd700</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="bronze">#cd7f32</color>
 
     <!--    MATCHES ACTIVITY COLORS -->
     <color name="tvGamesGreen">#8AFF02</color>
