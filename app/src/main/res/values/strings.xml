@@ -23,10 +23,13 @@
     <string name="errorLogIn">Error when logging in</string>
     <string name="logInFail">Email or password not correct</string>
     <string name="logInConnectionFail">Couldn\'t log in</string>
+    <string name="errorRegister">You can\'t register</string>
+    <string name="noUsersToLink">All players have already been registered</string>
     <string name="btnGuest">Join as a guest</string>
-    <string name="joinAsGuest">Join as a guest</string>
+    <string name="tvGuest">Guest</string>
     <string name="guestMessage">You will join the app as a guest</string>
     <string name="notAbleToVote">If you click "Accept", you will not be able to vote</string>
+    <string name="tvSelectYourName">Select your name</string>
 
 
     <!--    Players Activity    -->

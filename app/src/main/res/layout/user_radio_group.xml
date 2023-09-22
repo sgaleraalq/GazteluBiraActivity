@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/user_email_border"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvSelectUserTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="@string/tvSelectYourName"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="3dp"
+        android:background="@color/black" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+        <RadioGroup
+            android:id="@+id/rgUserToEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+        </RadioGroup>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="5dp"
+        android:background="@color/black" />
+
+    <Button
+        android:id="@+id/btnUserEmailAccept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@color/orange"
+        android:text="@string/accept"
+        android:textColor="@color/black" />
+
+</LinearLayout>

@@ -10,11 +10,14 @@ import com.example.gaztelubiraactivity.screens.MatchesActivity
 import com.example.gaztelubiraactivity.screens.PlayersActivity
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import io.github.jan.supabase.SupabaseClient
-import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.gotrue
+import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.postgrest.query.Columns
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.jsonArray
 
 enum class ProviderType{
     BASIC
@@ -35,24 +38,53 @@ class MainActivity : ComponentActivity() {
     private lateinit var email: String
     private lateinit var provider: String
 
+    private var userName: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         bundle = intent.extras!!
-        email = bundle?.getString("email").toString()
-        provider = bundle?.getString("provider").toString()
+        email = bundle.getString("email").toString()
+        provider = bundle.getString("provider").toString()
 
         initComponents()
         initListeners()
         initUI()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
+    @SuppressLint("SetTextI18n")
     private fun initUI() {
-        tvLoggedAs.text = "Logged as: $email"
+        if (email != "Guest") { GlobalScope.launch{ getLoggedName() } }
+        if (email == "Guest") { tvLoggedAs.text = "Logged as: $email" }
         getJson()
         getPoints()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private suspend fun getLoggedName() {
+        val jsonParser = Gson()
+        val userNameResponse = runBlocking {
+            SupabaseManager.client.postgrest["user_auth"].select(
+                columns = Columns.list("email", "name")
+            ) {
+                eq("email", email)
+            }.body?.jsonArray?.get(0)?.toString()
+        }
+
+        val jsonObject = jsonParser.fromJson(userNameResponse, JsonObject::class.java)
+        if (jsonObject.has("name")) {
+            userName = jsonObject.get("name").asString
+            runOnUiThread {
+                tvLoggedAs.text = "Logged as: ${jsonObject.get("name").asString}"
+            }
+        } else {
+            runOnUiThread {
+                tvLoggedAs.text = "Logged as: $email"
+            }
+        }
     }
 
     private fun initComponents(){
