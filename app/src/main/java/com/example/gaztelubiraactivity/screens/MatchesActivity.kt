@@ -5,18 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gaztelubiraactivity.R
-import com.example.gaztelubiraactivity.BuildConfig
 import com.example.gaztelubiraactivity.SupabaseManager
-import io.github.jan.supabase.SupabaseClient
-import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.postgrest.Postgrest
-import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.PostgrestResult
-import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 
 class MatchesActivity : AppCompatActivity() {
@@ -57,16 +50,9 @@ class MatchesActivity : AppCompatActivity() {
         getData()
     }
 
-    private fun getClient(): SupabaseClient {
-        return SupabaseManager.client
-    }
-
     private fun getData() {
-        lifecycleScope.launch {
-            val client = getClient()
-            val supabaseResponse = client.postgrest["games"].select()
-            getResultsFromJson(supabaseResponse)
-        }
+        val supabaseResponse = SupabaseManager.games
+        getResultsFromJson(supabaseResponse)
     }
 
     private fun getResultsFromJson(supabaseResponse: PostgrestResult) {

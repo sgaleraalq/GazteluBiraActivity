@@ -7,16 +7,12 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.lifecycle.lifecycleScope
 import com.example.gaztelubiraactivity.R
 import com.example.gaztelubiraactivity.SupabaseManager
-import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.PostgrestResult
-import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import android.app.Dialog
 import android.widget.RadioButton
-import androidx.appcompat.app.AlertDialog
 
 
 class PlayersActivity : ComponentActivity() {
@@ -110,36 +106,19 @@ class PlayersActivity : ComponentActivity() {
     }
 
     private fun getData(){
-        val client = SupabaseManager.client
-        lifecycleScope.launch {
-            val supabaseResponse = client.postgrest["players"].select()
-            getResultsFromJson(supabaseResponse)
-        }
+        val supabaseResponse = SupabaseManager.players
+        getResultsFromJson(supabaseResponse)
     }
 
     private fun getResultsFromJson(supabaseResponse: PostgrestResult) {
         val json = Json { var ignoreUnknownKeys = true }
-        try {
-            playerStats = json.decodeFromString<List<Player>>(supabaseResponse.body.toString()).sortedBy { it.name }
+        playerStats = json.decodeFromString<List<Player>>(supabaseResponse.body.toString()).sortedBy { it.name }
 
-//            To get the proportion of goals per match
-            updateProportions()
+//          To get the proportion of goals per match
+        updateProportions()
 
-//            Insert all players into table
-            sortStats()
-
-        } catch (e: Exception) {
-            showConexionError()
-        }
-    }
-
-    private fun showConexionError(){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.conexionErrorTitle)
-        builder.setMessage(R.string.conexionErrorMessage)
-        builder.setPositiveButton("Accept", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
+//          Insert all players into table
+        sortStats()
     }
 
     private fun updateProportions(){

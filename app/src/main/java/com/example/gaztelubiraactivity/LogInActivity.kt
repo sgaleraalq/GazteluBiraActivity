@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AlertDialog
@@ -35,6 +36,8 @@ class LogInActivity : AppCompatActivity() {
     private lateinit var rgUserToEmail: RadioGroup
     private lateinit var btnUserToEmail: Button
 
+    private lateinit var llLogIn: LinearLayout
+
     //    Set up Supabase
     private lateinit var client: SupabaseClient
 
@@ -42,9 +45,23 @@ class LogInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_in)
 
+        llLogIn = findViewById(R.id.llLogIn)
+
+        session()
         initComponents()
         initListeners()
         initUI()
+    }
+
+    private fun session(){
+        val prefs = getSharedPreferences(getString(R.string.prefsFile), MODE_PRIVATE)
+        val email = prefs.getString("email", null)
+        val provider = prefs.getString("provider", null)
+
+        if (email != null && provider != null) {
+            llLogIn.visibility = LinearLayout.GONE
+            showMain(email, ProviderType.valueOf(provider))
+        }
     }
 
     private fun initComponents() {

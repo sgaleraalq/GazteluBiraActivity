@@ -49,6 +49,8 @@
     <string name="tvNewPlayer">New player</string>
     <string name="tvDefaultInsert">0</string>
     <string name="btnAddPlayer">Add player</string>
+    <string name="errorGettingPoints">Error getting points</string>
+    <string name="prefsFile">com.example.gaztelubiraactivity.PREFERENCE_FILE_KEY</string>
 
     <!--    Image descriptions    -->
     <string name="descriptionGazteluBiraLogo">Gaztelu Bira Logo</string>
