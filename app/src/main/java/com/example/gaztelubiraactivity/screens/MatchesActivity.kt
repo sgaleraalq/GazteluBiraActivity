@@ -17,12 +17,14 @@ class MatchesActivity : AppCompatActivity() {
     private lateinit var tvGamesPointsWin: TextView
     private lateinit var tvGamesPointsDraw: TextView
     private lateinit var tvGamesPointsLost: TextView
-    private lateinit var spinner: ProgressBar
 
     private lateinit var allResults: List<Matches>
 
     private lateinit var rvMatches: RecyclerView
     private var matchesAdapter: MatchesAdapter? = null
+
+    private lateinit var bundle: Bundle
+    private var userName: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,11 +44,11 @@ class MatchesActivity : AppCompatActivity() {
         tvGamesPointsDraw = findViewById(R.id.tvGamesPointsDraw)
         tvGamesPointsLost = findViewById(R.id.tvGamesPointsLost)
         rvMatches = findViewById(R.id.rvMatches)
-        spinner = findViewById(R.id.pbMatches)
     }
 
     private fun initUI() {
-        spinner.visibility = View.VISIBLE
+        bundle = intent.extras!!
+        userName = bundle.getString("name").toString()
         getData()
     }
 
@@ -56,18 +58,11 @@ class MatchesActivity : AppCompatActivity() {
     }
 
     private fun getResultsFromJson(supabaseResponse: PostgrestResult) {
-        val json = Json { var ignoreUnknownKeys = true }
-        try {
-            allResults = json.decodeFromString(supabaseResponse.body.toString())
-            matchesAdapter = MatchesAdapter(allResults.sortedBy { it.id })
-            rvMatches.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-            rvMatches.adapter = matchesAdapter
-            spinner.visibility = View.GONE
-            getMatchesStats()
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        allResults = Json.decodeFromString(supabaseResponse.body.toString())
+        matchesAdapter = MatchesAdapter(allResults.sortedBy { it.id }, userName)
+        rvMatches.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvMatches.adapter = matchesAdapter
+        getMatchesStats()
     }
 
     private fun getMatchesStats() {

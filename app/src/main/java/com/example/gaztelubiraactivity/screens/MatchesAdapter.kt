@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gaztelubiraactivity.R
 
-class MatchesAdapter(private var matches: List<Matches>) :
+class MatchesAdapter(private var matches: List<Matches>, private val userName: String) :
     RecyclerView.Adapter<MatchesViewHolder>() {
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.main_item_expandable, parent, false)
         return MatchesViewHolder(view)
@@ -23,7 +21,7 @@ class MatchesAdapter(private var matches: List<Matches>) :
         holderMatchesStats.matchesStatsRecyclerView.setHasFixedSize(true)
         holderMatchesStats.matchesStatsRecyclerView.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
         val toAdapt = MatchesStats(matches[position].scorers, matches[position].assistants, matches[position].players)
-        val adapter = MatchesStatsAdapter(toAdapt)
+        val adapter = MatchesStatsAdapter(toAdapt, userName)
         holderMatchesStats.matchesStatsRecyclerView.adapter = adapter
 
 //        Expandable Functionality
@@ -47,7 +45,7 @@ class MatchesAdapter(private var matches: List<Matches>) :
     }
 
     fun clearData() {
-        matches = emptyList() // Vaciar la lista de datos
-        notifyDataSetChanged() // Notificar al RecyclerView que los datos han cambiado
+        matches = emptyList()
+        notifyDataSetChanged()
     }
 }

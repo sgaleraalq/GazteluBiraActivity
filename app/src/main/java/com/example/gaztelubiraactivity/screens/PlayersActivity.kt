@@ -18,7 +18,6 @@ import android.widget.RadioButton
 class PlayersActivity : ComponentActivity() {
 
     private lateinit var tlPlayerStats: TableLayout
-
     private lateinit var tvPositionRow: TextView
     private lateinit var tvPlayerName: TextView
     private lateinit var tvPlayerStats: TextView
@@ -111,8 +110,7 @@ class PlayersActivity : ComponentActivity() {
     }
 
     private fun getResultsFromJson(supabaseResponse: PostgrestResult) {
-        val json = Json { var ignoreUnknownKeys = true }
-        playerStats = json.decodeFromString<List<Player>>(supabaseResponse.body.toString()).sortedBy { it.name }
+        playerStats = Json.decodeFromString<List<Player>>(supabaseResponse.body.toString()).sortedBy { it.name }
 
 //          To get the proportion of goals per match
         updateProportions()
@@ -144,6 +142,7 @@ class PlayersActivity : ComponentActivity() {
         changeRowLabel(value)
     }
 
+    @SuppressLint("InflateParams")
     private fun insertPlayersToTable(value: String = "goals"){
         tlPlayerStats.removeViews(1, tlPlayerStats.childCount - 1)
         var position = 1

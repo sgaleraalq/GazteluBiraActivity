@@ -10,16 +10,13 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.children
 import androidx.lifecycle.lifecycleScope
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.gotrue
 import io.github.jan.supabase.gotrue.providers.builtin.Email
 import io.github.jan.supabase.postgrest.postgrest
-import io.github.jan.supabase.postgrest.query.Columns
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -96,7 +93,7 @@ class LogInActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        SupabaseManager.initialize(this)
+        SupabaseManager.initialize()
         startClient()
     }
 
@@ -120,7 +117,7 @@ class LogInActivity : AppCompatActivity() {
 
     private suspend fun logInUser() {
         try {
-            client.gotrue.loginWith(Email) {
+            SupabaseManager.client.gotrue.loginWith(Email) {
                 email = etEmail.text.toString()
                 password = etPassword.text.toString()
             }

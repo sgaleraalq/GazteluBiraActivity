@@ -3,22 +3,15 @@ package com.example.gaztelubiraactivity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.core.content.ContextCompat
 import com.example.gaztelubiraactivity.screens.Matches
 import com.example.gaztelubiraactivity.screens.MatchesActivity
 import com.example.gaztelubiraactivity.screens.PlayersActivity
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import io.github.jan.supabase.gotrue.gotrue
-import io.github.jan.supabase.postgrest.postgrest
-import io.github.jan.supabase.postgrest.query.Columns
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.jsonArray
@@ -40,8 +33,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var bundle: Bundle
     private lateinit var email: String
     private lateinit var provider: String
-
-    private var userName: String = ""
+    private lateinit var userName: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,17 +62,18 @@ class MainActivity : ComponentActivity() {
 
 //        Set up Logged tag in the upper part of the screen
         if (email != "Guest") {
-            getLoggedName()
+            userName = getLoggedName()
         }
         if (email == "Guest") {
-            tvLoggedAs.text = "Logged as: $email"
+            userName = "Guest"
+            tvLoggedAs.text = "Logged as: $userName"
         }
 //        Set up points
         getData()
     }
 
     @SuppressLint("SetTextI18n")
-    private fun getLoggedName() {
+    private fun getLoggedName(): String {
         val userNameResponse = SupabaseManager.userAuth.body?.jsonArray
 
         for (user in userNameResponse!!) {
@@ -90,12 +83,13 @@ class MainActivity : ComponentActivity() {
                 runOnUiThread{
                     tvLoggedAs.text = "Logged as: $name"
                 }
-                return
+                return name
             }
         }
         runOnUiThread {
             tvLoggedAs.text = "Logged as: $email"
         }
+        return "Guest"
     }
 
     private fun initComponents() {
@@ -120,12 +114,16 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun playersIntent() {
-        val intent = Intent(this, PlayersActivity::class.java)
+        val intent = Intent(this, PlayersActivity::class.java).apply {
+            putExtra("name", userName)
+        }
         startActivity(intent)
     }
 
     private fun matchesIntent() {
-        val intent = Intent(this, MatchesActivity::class.java)
+        val intent = Intent(this, MatchesActivity::class.java).apply {
+            putExtra("name", userName)
+        }
         startActivity(intent)
     }
 

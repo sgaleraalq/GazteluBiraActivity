@@ -87,7 +87,8 @@
             android:background="@android:color/transparent"
             android:text="@string/tvNumberOfGoals"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
     </androidx.cardview.widget.CardView>
 
@@ -108,7 +109,7 @@
             android:layout_gravity="center_horizontal"
             tools:ignore="VisualLintBounds">
 
-            <TableRow>
+            <TableRow tools:ignore="UselessParent">
 
                 <TextView
                     android:id="@+id/tvPosition"

@@ -25,11 +25,11 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val dialog: Dialog = Dialog(itemView.context)
 
 
-    fun render(matchesStats: MatchesStats) {
-        initListeners(matchesStats)
+    fun render(matchesStats: MatchesStats, userName: String) {
+        initListeners(matchesStats, userName)
     }
 
-    private fun initListeners(stats: MatchesStats) {
+    private fun initListeners(stats: MatchesStats, userName: String) {
         cvMatchesStatsGoals.setOnClickListener {
             showNonMVPDialog("Goals", stats)
         }
@@ -40,7 +40,7 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             showNonMVPDialog("Players", stats)
         }
         cvMatchesStatsMVP.setOnClickListener {
-            showMVPDialog(stats)
+            showMVPDialog(stats, userName)
         }
     }
 
@@ -81,15 +81,16 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         dialog.show()
     }
 
-    private fun showMVPDialog(stats: MatchesStats) {
+    private fun showMVPDialog(stats: MatchesStats, userName: String) {
         dialog.setContentView(R.layout.mvp_dialog)
         val rgMvpPlayers = dialog.findViewById<RadioGroup>(R.id.rgMVP)
         val btnSendMVP: Button = dialog.findViewById(R.id.btnSendMVP)
 
         for (player in stats.players) {
+            if (player == userName) continue
             val rbPlayer = RadioButton(itemView.context)
 
-//            This only is for creating the radio button style
+            //            This only is for creating the radio button style
             val layoutParams = RadioGroup.LayoutParams(
                 RadioGroup.LayoutParams.MATCH_PARENT,
                 RadioGroup.LayoutParams.WRAP_CONTENT
@@ -105,7 +106,7 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             rbPlayer.setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
             layoutParams.setMargins(5, 5, 5, 5)
             rbPlayer.textSize = 20f
-//            Here it finishes
+            //            Here it finishes
 
             rbPlayer.text = player
             rgMvpPlayers.addView(rbPlayer)

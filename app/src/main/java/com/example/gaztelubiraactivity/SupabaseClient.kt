@@ -1,13 +1,11 @@
 package com.example.gaztelubiraactivity
 
-import android.content.Context
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.PostgrestResult
-import kotlinx.coroutines.runBlocking
 
 object SupabaseManager {
     lateinit var client: SupabaseClient
@@ -15,7 +13,7 @@ object SupabaseManager {
     lateinit var games: PostgrestResult
     lateinit var userAuth: PostgrestResult
 
-    fun initialize(context: Context) {
+    fun initialize() {
         client = createSupabaseClient(
             supabaseUrl = BuildConfig.SUPABASE_URL,
             supabaseKey = BuildConfig.SUPABASE_KEY
