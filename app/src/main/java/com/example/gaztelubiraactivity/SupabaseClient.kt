@@ -12,6 +12,7 @@ object SupabaseManager {
     lateinit var players: PostgrestResult
     lateinit var games: PostgrestResult
     lateinit var userAuth: PostgrestResult
+    lateinit var mvpStats: PostgrestResult
 
     fun initialize() {
         client = createSupabaseClient(
@@ -27,5 +28,6 @@ object SupabaseManager {
         players = client.postgrest.from("players").select()
         games = client.postgrest.from("games").select()
         userAuth = client.postgrest.from("user_auth").select()
+        mvpStats = client.postgrest.from("MVP").select()
     }
 }

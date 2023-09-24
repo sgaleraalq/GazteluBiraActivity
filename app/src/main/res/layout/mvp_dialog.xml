@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -18,7 +19,6 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:drawableStartCompat="@drawable/crown_svgrepo_com"
-        app:layout_constraintBottom_toTopOf="@+id/svMVP"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,13 +39,19 @@
         android:background="@color/teal_200"
         app:layout_constraintBottom_toTopOf="@+id/btnSendMVP"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vBarMVP">
+        app:layout_constraintTop_toBottomOf="@+id/vBarMVP"
+        app:layout_constraintVertical_bias="0.0">
 
         <RadioGroup
             android:id="@+id/rgMVP"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:paddingBottom="10dp">
+
+        </RadioGroup>
     </ScrollView>
 
     <Button
@@ -55,7 +61,7 @@
         android:background="@color/black"
         android:text="@string/sendMVP"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svMVP"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

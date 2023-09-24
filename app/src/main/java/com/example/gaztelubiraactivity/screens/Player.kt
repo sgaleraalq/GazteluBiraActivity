@@ -9,6 +9,7 @@ data class Player(
     val goals: Int,
     val assists: Int,
     val gamesPlayed: Int,
+    val mvp: Int,
     var proportionMatchesGoals: Double = 0.0
 )
 

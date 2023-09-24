@@ -13,6 +13,7 @@ import io.github.jan.supabase.postgrest.query.PostgrestResult
 import kotlinx.serialization.json.Json
 import android.app.Dialog
 import android.widget.RadioButton
+import java.text.DecimalFormat
 
 
 class PlayersActivity : ComponentActivity() {
@@ -98,7 +99,7 @@ class PlayersActivity : ComponentActivity() {
             btnStats.text = "Goals %"
         }
         rbMVP.setOnClickListener {
-            sortStats("MVP")
+            sortStats("mvp")
             dialog.dismiss()
             btnStats.text = "MVP"
         }
@@ -120,12 +121,13 @@ class PlayersActivity : ComponentActivity() {
     }
 
     private fun updateProportions(){
+        val decimalFormat = DecimalFormat("#.##")
         for (player in playerStats){
             val goals = player.goals
             val gamesPlayed = player.gamesPlayed
             val proportionMatchesGoals =
                 if (gamesPlayed > 0) goals.toDouble() / gamesPlayed.toDouble() else 0.0
-            player.proportionMatchesGoals = proportionMatchesGoals
+            player.proportionMatchesGoals = decimalFormat.format(proportionMatchesGoals).toDouble()
         }
     }
 
@@ -136,7 +138,7 @@ class PlayersActivity : ComponentActivity() {
             "gamesPlayed" -> playerStats.sortedByDescending { it.gamesPlayed }
             "proportionMatchesGoals" -> playerStats.sortedByDescending { it.proportionMatchesGoals }
 //            TODO MVP
-            else -> playerStats.sortedByDescending { it.name }
+            else -> playerStats.sortedByDescending { it.mvp }
         }
         insertPlayersToTable(value)
         changeRowLabel(value)
@@ -177,6 +179,7 @@ class PlayersActivity : ComponentActivity() {
                 "goals" -> player.goals.toString()
                 "assists" -> player.assists.toString()
                 "gamesPlayed" -> player.gamesPlayed.toString()
+                "mvp" -> player.mvp.toString()
                 else -> player.proportionMatchesGoals.toString()
             }
             // Agregar la fila al TableLayout

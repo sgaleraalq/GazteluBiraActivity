@@ -2,7 +2,8 @@ package com.example.gaztelubiraactivity.screens
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.util.TypedValue
+import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -13,8 +14,15 @@ import android.widget.RadioGroup
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gaztelubiraactivity.R
+import com.example.gaztelubiraactivity.SupabaseManager
+import kotlinx.serialization.json.Json
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.TimeZone
+import kotlin.reflect.full.memberProperties
 
 class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -25,11 +33,37 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val dialog: Dialog = Dialog(itemView.context)
 
 
-    fun render(matchesStats: MatchesStats, userName: String) {
-        initListeners(matchesStats, userName)
+    fun render(matchesStats: MatchesStats, userName: String, rival: String) {
+        initListeners(matchesStats, userName, rival)
     }
 
-    private fun initListeners(stats: MatchesStats, userName: String) {
+    @SuppressLint("SimpleDateFormat")
+    fun isSevenDaysAgo(dateString: String, formatPattern: String): Boolean {
+        try {
+            val sdf = SimpleDateFormat(formatPattern)
+            val date = sdf.parse(dateString)
+
+            if (date != null) {
+                val calendar =
+                    Calendar.getInstance(TimeZone.getTimeZone("UTC")) // Utiliza la zona horaria adecuada
+                val today = calendar.time
+
+                // Calcula la diferencia en milisegundos
+                val differenceInMillis = today.time - date.time
+
+                // Convierte los milisegundos a días
+                val daysDifference = differenceInMillis / (1000 * 60 * 60 * 24)
+
+                return daysDifference >= 7
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return false
+    }
+
+    private fun initListeners(stats: MatchesStats, userName: String, rival: String) {
         cvMatchesStatsGoals.setOnClickListener {
             showNonMVPDialog("Goals", stats)
         }
@@ -40,9 +74,31 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             showNonMVPDialog("Players", stats)
         }
         cvMatchesStatsMVP.setOnClickListener {
-            showMVPDialog(stats, userName)
+            val mvpStats =
+                Json.decodeFromString<List<MVP>>(SupabaseManager.mvpStats.body.toString())
+                    .filter { it.match == rival }
+
+            val eligiblePlayers = getEligiblePlayers(mvpStats[0])
+
+            if (isEligible(userName, eligiblePlayers)) {
+                if (closedVotation(mvpStats[0].createdAt)) {
+                    println("Past 7 days")
+                    showFinalStats()
+                } else {
+                    println("Not past 7 days")
+                    showMVPDialog(stats, userName)
+                }
+            } else {
+                println("Not eligible")
+                if (closedVotation(mvpStats[0].createdAt)) {
+                    showStats()
+                } else {
+                    showFinalStats()
+                }
+            }
         }
     }
+
 
     @SuppressLint("SetTextI18n")
     private fun showNonMVPDialog(context: String, stats: MatchesStats) {
@@ -81,6 +137,28 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         dialog.show()
     }
 
+    private fun getEligiblePlayers(mvpStats: MVP): MutableList<String> {
+        val eligiblePlayers = mutableListOf<String>()
+        for (prop in mvpStats::class.memberProperties) {
+            if (prop.getter.call(mvpStats) == null) {
+                eligiblePlayers.add(prop.name)
+            }
+        }
+        return eligiblePlayers
+    }
+
+    private fun isEligible(user: String, eligiblePlayers: MutableList<String>): Boolean {
+        if (user.lowercase() == "Guest") return false
+        else if (user.lowercase() !in eligiblePlayers) return false
+        return true
+    }
+
+    private fun closedVotation(date: String): Boolean {
+        val formatPattern = "yyyy-MM-dd"
+
+        return isSevenDaysAgo(date, formatPattern)
+    }
+
     private fun showMVPDialog(stats: MatchesStats, userName: String) {
         dialog.setContentView(R.layout.mvp_dialog)
         val rgMvpPlayers = dialog.findViewById<RadioGroup>(R.id.rgMVP)
@@ -88,39 +166,49 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         for (player in stats.players) {
             if (player == userName) continue
+
             val rbPlayer = RadioButton(itemView.context)
 
-            //            This only is for creating the radio button style
+            // Configuración del formato del RadioButton
             val layoutParams = RadioGroup.LayoutParams(
                 RadioGroup.LayoutParams.MATCH_PARENT,
                 RadioGroup.LayoutParams.WRAP_CONTENT
             )
-            val paddingInDp = 10
-            val paddingInPx = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                paddingInDp.toFloat(),
-                itemView.resources.displayMetrics
-            ).toInt()
+            layoutParams.setMargins(0, 8, 0, 8)
             rbPlayer.layoutParams = layoutParams
             rbPlayer.setBackgroundResource(R.drawable.radio_button_mvp_border)
-            rbPlayer.setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
-            layoutParams.setMargins(5, 5, 5, 5)
+            rbPlayer.setPadding(16, 16, 16, 16)
             rbPlayer.textSize = 20f
-            //            Here it finishes
-
+            rbPlayer.setTypeface(null, Typeface.BOLD)
+            rbPlayer.buttonTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.black))
             rbPlayer.text = player
+
+            // Agregar el RadioButton al RadioGroup o al contenedor deseado (en este caso, llMvpPlayers)
             rgMvpPlayers.addView(rbPlayer)
         }
 
         dialog.show()
-        btnSendMVP.setOnClickListener { showStats() }
+        btnSendMVP.setOnClickListener { showStats(true) }
     }
 
-    private fun showStats(){
+    private fun showStats(fromDialog: Boolean = false) {
 //        Remove scroll view from dialog
+        if (!fromDialog){
+            dialog.setContentView(R.layout.mvp_dialog)
+            dialog.show()
+        }
+
         val svMVP: ScrollView = dialog.findViewById(R.id.svMVP)
+        val btnSendMVP: Button = dialog.findViewById(R.id.btnSendMVP)
+        btnSendMVP.visibility = View.GONE
         svMVP.visibility = View.GONE
+
 //        TODO Add MVP votes
+
+    }
+
+    private fun showFinalStats() {
 
     }
 }

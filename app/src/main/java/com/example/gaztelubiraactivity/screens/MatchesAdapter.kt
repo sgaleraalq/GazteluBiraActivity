@@ -21,7 +21,8 @@ class MatchesAdapter(private var matches: List<Matches>, private val userName: S
         holderMatchesStats.matchesStatsRecyclerView.setHasFixedSize(true)
         holderMatchesStats.matchesStatsRecyclerView.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
         val toAdapt = MatchesStats(matches[position].scorers, matches[position].assistants, matches[position].players)
-        val adapter = MatchesStatsAdapter(toAdapt, userName)
+        val rival = getRival(matches[position])
+        val adapter = MatchesStatsAdapter(toAdapt, userName, rival)
         holderMatchesStats.matchesStatsRecyclerView.adapter = adapter
 
 //        Expandable Functionality
@@ -47,5 +48,13 @@ class MatchesAdapter(private var matches: List<Matches>, private val userName: S
     fun clearData() {
         matches = emptyList()
         notifyDataSetChanged()
+    }
+
+    fun getRival(matches: Matches): String {
+        return if (matches.home == "Gaztelu Bira") {
+            matches.away
+        } else {
+            matches.home
+        }
     }
 }
