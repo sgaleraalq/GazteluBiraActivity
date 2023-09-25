@@ -193,16 +193,17 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         dialog.show()
         btnSendMVP.setOnClickListener {
-            val rbSelectedUser = rgMvpPlayers.findViewById<RadioButton>(rgMvpPlayers.checkedRadioButtonId)
+            val rbSelectedUser =
+                rgMvpPlayers.findViewById<RadioButton>(rgMvpPlayers.checkedRadioButtonId)
             val votedPlayer = rbSelectedUser.text.toString()
 
             validateVote(userName.lowercase(), votedPlayer, rival)
             dialog.dismiss()
-            showStats(mvpStats)
+            showStats(mvpStats, votedPlayer)
         }
     }
 
-    private fun validateVote(userName: String, votePlayer: String, rival: String){
+    private fun validateVote(userName: String, votePlayer: String, rival: String) {
         try {
             runBlocking {
                 SupabaseManager.client.postgrest["MVP"].update(
@@ -219,17 +220,25 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    private fun showStats(mvpStats: MVP) {
+    private fun showStats(mvpStats: MVP, votedPlayer: String? = null) {
         val statsMVPDialog = Dialog(itemView.context)
         statsMVPDialog.setContentView(R.layout.bar_chart_mvp)
 
-        showMostVotedPlayers(mvpStats, statsMVPDialog)
+        showMostVotedPlayers(mvpStats, statsMVPDialog, votedPlayer)
 
         statsMVPDialog.show()
     }
 
-    private fun showMostVotedPlayers(mvpStats: MVP, statsMVPDialog: Dialog) {
+    private fun showMostVotedPlayers(
+        mvpStats: MVP,
+        statsMVPDialog: Dialog,
+        votedPlayer: String? = null
+    ) {
         val mostVotedPlayers = mutableListOf<String>()
+
+        if (votedPlayer != null) {
+            mostVotedPlayers.add(votedPlayer)
+        }
 
         for (prop in mvpStats::class.memberProperties) {
             if (prop.name == "match" || prop.name == "createdAt" || prop.name == "id") continue
@@ -242,12 +251,13 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val countedPlayers = mostVotedPlayers.groupingBy { it }.eachCount().entries
             .sortedByDescending { it.value }
             .filter { it.value > 0 }
-            .sortedBy{ it.value }
+            .sortedBy { it.value }
+
 
         val entries = ArrayList<BarEntry>()
         var index = 0f
 
-        for ((playerName, votes) in countedPlayers) {
+        for ((_, votes) in countedPlayers) {
             val barEntry = BarEntry(index, votes.toFloat())
             entries.add(barEntry)
             index += 1f
@@ -257,6 +267,7 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun showFinalStats(mvpStats: MVP) {
         dialog.setContentView(R.layout.final_mvp_stats_dialog)
         val tvFinalMVPWinner: TextView = dialog.findViewById(R.id.finalMVPWinner)
@@ -281,7 +292,11 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         tvFinalMVPWinner.text = countedPlayers[0].key
     }
 
-    private fun addBarChartToDialog(chartView: Dialog, mostVotedPlayers: List<BarEntry>, countedPlayers: List<Map.Entry<String, Int>>) {
+    private fun addBarChartToDialog(
+        chartView: Dialog,
+        mostVotedPlayers: List<BarEntry>,
+        countedPlayers: List<Map.Entry<String, Int>>
+    ) {
         val barChart: BarChart = chartView.findViewById(R.id.barChartMVP)
 
         println(mostVotedPlayers)
@@ -324,7 +339,8 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         // Establecer la posición de las etiquetas en el eje X (debajo de las barras)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.granularity = 1f // Establecer la granularidad en 1 para que las etiquetas vayan de 1 en 1
+        xAxis.granularity =
+            1f // Establecer la granularidad en 1 para que las etiquetas vayan de 1 en 1
 
         // Mostrar el valor en la barra
         barDataSet.setDrawValues(true)
@@ -340,9 +356,7 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
 
-
-
-    private fun showAlert(errorMessage: Int, message: Int){
+    private fun showAlert(errorMessage: Int, message: Int) {
         val builder = AlertDialog.Builder(itemView.context)
         builder.setTitle(errorMessage)
         builder.setMessage(message)
