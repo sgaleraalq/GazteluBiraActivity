@@ -76,6 +76,8 @@ dependencies {
     implementation("io.ktor:ktor-client-core:2.3.4")
     implementation("io.ktor:ktor-utils:2.3.4")
 
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 
 
     implementation("com.google.code.gson:gson:2.8.9")

@@ -208,7 +208,7 @@ class LogInActivity : AppCompatActivity() {
 
 
     private suspend fun linkNameToEmail(){
-        val rbSelectedUser = rgUserToEmail.getChildAt(rgUserToEmail.checkedRadioButtonId-1) as RadioButton
+        val rbSelectedUser = rgUserToEmail.findViewById<RadioButton>(rgUserToEmail.checkedRadioButtonId)
         val user = rbSelectedUser.text.toString()
 
         try {

@@ -30,6 +30,8 @@
     <string name="guestMessage">You will join the app as a guest</string>
     <string name="notAbleToVote">If you click "Accept", you will not be able to vote</string>
     <string name="tvSelectYourName">Select your name</string>
+    <string name="mvpVoteFail">MVP vote failed</string>
+    <string name="mvpVoteFailDescription">Couldn\'t submit MVP vote to the final votation</string>
 
 
     <!--    Players Activity    -->
@@ -84,6 +86,9 @@
     <string name="descriptionMVP">MVP icon image</string>
     <string name="selectMVP">Select your MVP</string>
     <string name="sendMVP">Send MVP</string>
+    <string name="MVPVotes">MVP Votes</string>
+    <string name="tvMVPVotesForTheMoment">MVP votes for the moment</string>
+    <string name="btnClose">Close</string>
 
 
 <!--    SupaBase Strings    -->

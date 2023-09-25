@@ -3,6 +3,7 @@ package com.example.gaztelubiraactivity.screens
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Typeface
 import android.view.View
 import android.widget.ArrayAdapter
@@ -11,13 +12,22 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.ScrollView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gaztelubiraactivity.R
 import com.example.gaztelubiraactivity.SupabaseManager
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.utils.ColorTemplate
+import io.github.jan.supabase.postgrest.postgrest
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -80,20 +90,13 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
             val eligiblePlayers = getEligiblePlayers(mvpStats[0])
 
-            if (isEligible(userName, eligiblePlayers)) {
-                if (closedVotation(mvpStats[0].createdAt)) {
-                    println("Past 7 days")
-                    showFinalStats()
-                } else {
-                    println("Not past 7 days")
-                    showMVPDialog(stats, userName)
-                }
+            if (closedVotation(mvpStats[0].createdAt)) {
+                showFinalStats(mvpStats[0])
             } else {
-                println("Not eligible")
-                if (closedVotation(mvpStats[0].createdAt)) {
-                    showStats()
+                if (isEligible(userName, eligiblePlayers)) {
+                    showMVPDialog(stats, userName, rival, mvpStats[0])
                 } else {
-                    showFinalStats()
+                    showStats(mvpStats[0])
                 }
             }
         }
@@ -159,7 +162,7 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         return isSevenDaysAgo(date, formatPattern)
     }
 
-    private fun showMVPDialog(stats: MatchesStats, userName: String) {
+    private fun showMVPDialog(stats: MatchesStats, userName: String, rival: String, mvpStats: MVP) {
         dialog.setContentView(R.layout.mvp_dialog)
         val rgMvpPlayers = dialog.findViewById<RadioGroup>(R.id.rgMVP)
         val btnSendMVP: Button = dialog.findViewById(R.id.btnSendMVP)
@@ -189,26 +192,164 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
 
         dialog.show()
-        btnSendMVP.setOnClickListener { showStats(true) }
+        btnSendMVP.setOnClickListener {
+            val rbSelectedUser = rgMvpPlayers.findViewById<RadioButton>(rgMvpPlayers.checkedRadioButtonId)
+            val votedPlayer = rbSelectedUser.text.toString()
+
+            validateVote(userName.lowercase(), votedPlayer, rival)
+            dialog.dismiss()
+            showStats(mvpStats)
+        }
     }
 
-    private fun showStats(fromDialog: Boolean = false) {
-//        Remove scroll view from dialog
-        if (!fromDialog){
-            dialog.setContentView(R.layout.mvp_dialog)
-            dialog.show()
+    private fun validateVote(userName: String, votePlayer: String, rival: String){
+        try {
+            runBlocking {
+                SupabaseManager.client.postgrest["MVP"].update(
+                    {
+                        set(userName, votePlayer)
+                    })
+                {
+                    eq("match", rival)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            showAlert(R.string.mvpVoteFail, R.string.mvpVoteFailDescription)
+        }
+    }
+
+    private fun showStats(mvpStats: MVP) {
+        val statsMVPDialog = Dialog(itemView.context)
+        statsMVPDialog.setContentView(R.layout.bar_chart_mvp)
+
+        showMostVotedPlayers(mvpStats, statsMVPDialog)
+
+        statsMVPDialog.show()
+    }
+
+    private fun showMostVotedPlayers(mvpStats: MVP, statsMVPDialog: Dialog) {
+        val mostVotedPlayers = mutableListOf<String>()
+
+        for (prop in mvpStats::class.memberProperties) {
+            if (prop.name == "match" || prop.name == "createdAt" || prop.name == "id") continue
+            if (prop.getter.call(mvpStats) == null || prop.getter.call(mvpStats) == "None") continue
+            else {
+                mostVotedPlayers.add(prop.getter.call(mvpStats).toString())
+            }
         }
 
-        val svMVP: ScrollView = dialog.findViewById(R.id.svMVP)
-        val btnSendMVP: Button = dialog.findViewById(R.id.btnSendMVP)
-        btnSendMVP.visibility = View.GONE
-        svMVP.visibility = View.GONE
+        val countedPlayers = mostVotedPlayers.groupingBy { it }.eachCount().entries
+            .sortedByDescending { it.value }
+            .filter { it.value > 0 }
+            .sortedBy{ it.value }
 
-//        TODO Add MVP votes
+        val entries = ArrayList<BarEntry>()
+        var index = 0f
 
+        for ((playerName, votes) in countedPlayers) {
+            val barEntry = BarEntry(index, votes.toFloat())
+            entries.add(barEntry)
+            index += 1f
+        }
+
+        addBarChartToDialog(statsMVPDialog, entries, countedPlayers)
     }
 
-    private fun showFinalStats() {
 
+    private fun showFinalStats(mvpStats: MVP) {
+        dialog.setContentView(R.layout.final_mvp_stats_dialog)
+        val tvFinalMVPWinner: TextView = dialog.findViewById(R.id.finalMVPWinner)
+
+        val mostVotedPlayers = mutableListOf<String>()
+        for (prop in mvpStats::class.memberProperties) {
+            if (prop.name == "match" || prop.name == "createdAt" || prop.name == "id") continue
+            if (prop.getter.call(mvpStats) == null || prop.getter.call(mvpStats) == "None") continue
+            else {
+                mostVotedPlayers.add(prop.getter.call(mvpStats).toString())
+            }
+        }
+
+        if (mostVotedPlayers.size == 0) {
+            tvFinalMVPWinner.text = "No MVP"
+            dialog.show()
+            return
+        }
+        val countedPlayers = mostVotedPlayers.groupingBy { it }.eachCount().entries
+            .sortedByDescending { it.value }
+            .take(1)
+        tvFinalMVPWinner.text = countedPlayers[0].key
+    }
+
+    private fun addBarChartToDialog(chartView: Dialog, mostVotedPlayers: List<BarEntry>, countedPlayers: List<Map.Entry<String, Int>>) {
+        val barChart: BarChart = chartView.findViewById(R.id.barChartMVP)
+
+        println(mostVotedPlayers)
+        // Configurar los datos del gráfico
+        val barDataSet = BarDataSet(mostVotedPlayers, "MVP Votes")
+        val barData = BarData(barDataSet)
+
+        // Personalizar colores, etiquetas, etc. aquí si es necesario
+
+        // Configurar el gráfico de barras
+        barChart.data = barData
+        barDataSet.setColors(ColorTemplate.JOYFUL_COLORS, 250)
+        barDataSet.valueTextColor = Color.BLACK
+        barDataSet.valueTextSize = 16f
+
+        // Configurar el fondo del gráfico como transparente
+        barChart.setBackgroundColor(Color.TRANSPARENT)
+
+        // Deshabilitar las líneas de la cuadrícula vertical y horizontal detrás del gráfico
+        barChart.xAxis.setDrawGridLines(false)
+        barChart.axisLeft.setDrawGridLines(false)
+        barChart.axisRight.setDrawGridLines(false)
+
+        // Deshabilitar el eje X (horizontal) y el eje Y (vertical)
+        barChart.axisRight.isEnabled = false
+        barChart.axisLeft.labelCount = 1
+
+        // Configurar etiquetas en el eje X (horizontal)
+        val xAxis: XAxis = barChart.xAxis
+        xAxis.valueFormatter = object : IndexAxisValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                // Aquí puedes personalizar cómo se muestran las etiquetas en el eje X
+                val index = value.toInt()
+                if (index >= 0 && index < countedPlayers.size) {
+                    return countedPlayers[index].key // Usar las strings de countedPlayers como etiquetas
+                }
+                return "" // Devolver una cadena vacía si el índice está fuera de rango
+            }
+        }
+
+        // Establecer la posición de las etiquetas en el eje X (debajo de las barras)
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.granularity = 1f // Establecer la granularidad en 1 para que las etiquetas vayan de 1 en 1
+
+        // Mostrar el valor en la barra
+        barDataSet.setDrawValues(true)
+
+        // Deshabilitar la descripción (leyenda) del gráfico
+        barChart.description.isEnabled = false
+
+        // Deshabilitar la leyenda (etiquetas en el fondo)
+        barChart.legend.isEnabled = false
+
+        // Actualizar el gráfico
+        barChart.invalidate()
+    }
+
+
+
+
+    private fun showAlert(errorMessage: Int, message: Int){
+        val builder = AlertDialog.Builder(itemView.context)
+        builder.setTitle(errorMessage)
+        builder.setMessage(message)
+        builder.setPositiveButton("Accept") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 }
