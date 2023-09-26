@@ -39,19 +39,14 @@
     <string name="tvNumberOfGoals">Goals</string>
     <string name="tvNumberOfAssits">Assists</string>
     <string name="tvNumberOfMatches">Matches</string>
+    <string name="tvNumberOfPlayers">Players</string>
     <string name="tvSortBy">Sort by</string>
 
     <string name="ivLogoDescription">Gaztelu Bira Logo</string>
     <string name="titlePlayers">Players stats</string>
     <string name="tvPlayerName">Player name</string>
     <string name="tvPosition">Position</string>
-    <string name="addNewPlayer">Add new player</string>
     <string name="tvProportionMatchesGoals">Goals %</string>
-    <string name="etInsertName">Insert player name</string>
-    <string name="tvNewPlayer">New player</string>
-    <string name="tvDefaultInsert">0</string>
-    <string name="btnAddPlayer">Add player</string>
-    <string name="errorGettingPoints">Error getting points</string>
     <string name="prefsFile">com.example.gaztelubiraactivity.PREFERENCE_FILE_KEY</string>
 
     <!--    Image descriptions    -->
@@ -68,9 +63,6 @@
     <string name="descriptionLogoVisitor">Visitor logo</string>
 
     <!--    Warnings    -->
-    <string name="warning">Warning</string>
-    <string name="warningEmptyName">Name can\'t be empty</string>
-    <string name="warningIncorrectParameters">The number of games must be greater than 0 if the number of goals or assists is greater than 0</string>
     <string name="accept">Accept</string>
     <string name="cancel">Cancel</string>
 
@@ -89,9 +81,9 @@
     <string name="MVPVotes">MVP Votes</string>
     <string name="tvMVPVotesForTheMoment">MVP votes for the moment</string>
     <string name="btnClose">Close</string>
+    <string name="fab_content_description">Represents a view to invoke an action</string>
 
-
-<!--    SupaBase Strings    -->
+    <!--    SupaBase Strings    -->
     <string name="conexionErrorTitle">Conexion error</string>
     <string name="conexionErrorMessage">There was an error connecting to the database</string>
 </resources>

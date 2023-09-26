@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getString
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gaztelubiraactivity.R
 import com.example.gaztelubiraactivity.SupabaseManager
@@ -103,7 +104,6 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
 
-    @SuppressLint("SetTextI18n")
     private fun showNonMVPDialog(context: String, stats: MatchesStats) {
         dialog.setContentView(R.layout.dialog_stats)
         dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_border)
@@ -114,21 +114,21 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         when (context) {
             "Goals" -> {
-                dialogTitle.text = "Goals"
+                dialogTitle.text = getString(itemView.context, R.string.tvNumberOfGoals)
                 dialogImage.setImageResource(R.drawable.football_ball)
                 dialogList.adapter =
                     ArrayAdapter(itemView.context, R.layout.players_in_list, stats.goals.toList())
             }
 
             "Assists" -> {
-                dialogTitle.text = "Assists"
+                dialogTitle.text = getString(itemView.context, R.string.tvNumberOfAssits)
                 dialogImage.setImageResource(R.drawable.football_shoe)
                 dialogList.adapter =
                     ArrayAdapter(itemView.context, R.layout.players_in_list, stats.assits.toList())
             }
 
             else -> {
-                dialogTitle.text = "Players"
+                dialogTitle.text = getString(itemView.context, R.string.tvNumberOfPlayers)
                 dialogImage.setImageResource(R.drawable.group_players)
                 dialogList.adapter = ArrayAdapter(
                     itemView.context,
@@ -299,7 +299,6 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     ) {
         val barChart: BarChart = chartView.findViewById(R.id.barChartMVP)
 
-        println(mostVotedPlayers)
         // Configurar los datos del gráfico
         val barDataSet = BarDataSet(mostVotedPlayers, "MVP Votes")
         val barData = BarData(barDataSet)

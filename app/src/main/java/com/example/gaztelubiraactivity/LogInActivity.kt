@@ -2,6 +2,7 @@ package com.example.gaztelubiraactivity
 
 import android.app.Dialog
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -20,6 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.util.Locale
 
 @Suppress("DeferredResultUnused")
 class LogInActivity : AppCompatActivity() {
@@ -43,6 +45,13 @@ class LogInActivity : AppCompatActivity() {
         setContentView(R.layout.activity_log_in)
 
         llLogIn = findViewById(R.id.llLogIn)
+
+        // Cambiar el idioma de la aplicación a español
+        val locale = Locale("es")
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.setLocale(locale)
+        resources.updateConfiguration(configuration, resources.displayMetrics)
 
         session()
         initComponents()

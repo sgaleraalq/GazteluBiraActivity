@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GazteluBiraActivity</string>
+    <string name="gazteluBira">Gaztelu Bira</string>
+    <string name="league">Liga</string>
+    <string name="btnMatches">Partidos</string>
+    <string name="btnPlayers">Jugadores</string>
+    <string name="title_activity_matches">MatchesActivity</string>
+    <string name="title_activity_players">PlayersActivity</string>
+    <string name="logOut">Cerrar sesión</string>
+
+    <!-- Actividad de inicio de sesión -->
+    <string name="etEmail">Correo electrónico</string>
+    <string name="etPassword">Contraseña</string>
+    <string name="btnRegister">Registrarse</string>
+    <string name="btnLogIn">Iniciar sesión</string>
+    <string name="tvLogInApp">Iniciar sesión en</string>
+    <string name="tvApp">la aplicación</string>
+    <string name="signUpFail">Por favor, complete todos los campos</string>
+    <string name="errorSignUp">Error al registrarse</string>
+    <string name="userNotRegistered">El usuario no ha sido registrado. Probablemente necesites una dirección de correo electrónico válida.</string>
+    <string name="userNotLoggedIn">No se pudo iniciar sesión</string>
+    <string name="signUpConnectionFail">No se pudo registrar debido a un problema de conexión</string>
+    <string name="errorLogIn">Error al iniciar sesión</string>
+    <string name="logInFail">Correo electrónico o contraseña incorrectos</string>
+    <string name="logInConnectionFail">No se pudo iniciar sesión debido a un problema de conexión</string>
+    <string name="errorRegister">No se pudo registrar</string>
+    <string name="noUsersToLink">Todos los jugadores ya han sido registrados</string>
+    <string name="btnGuest">Ingresar como invitado</string>
+    <string name="tvGuest">Invitado</string>
+    <string name="guestMessage">Ingresarás a la aplicación como invitado</string>
+    <string name="notAbleToVote">Si haces clic en "Aceptar", no podrás votar</string>
+    <string name="tvSelectYourName">Selecciona tu nombre</string>
+    <string name="mvpVoteFail">Error al votar al MVP</string>
+    <string name="mvpVoteFailDescription">No se pudo enviar tu voto al MVP a la votación final</string>
+
+    <!-- Actividad de jugadores -->
+    <string name="tvNumberOfGoals">Goles</string>
+    <string name="tvNumberOfAssits">Asistencias</string>
+    <string name="tvNumberOfMatches">Partidos</string>
+    <string name="tvNumberOfPlayers">Jugadores</string>
+    <string name="tvSortBy">Ordenar por</string>
+    <string name="ivLogoDescription">Logo de Gaztelu Bira</string>
+    <string name="titlePlayers">Stats</string>
+    <string name="tvPlayerName">Jugador</string>
+    <string name="tvPosition">Posición</string>
+    <string name="tvProportionMatchesGoals">% de goles</string>
+    <string name="prefsFile">com.example.gaztelubiraactivity.PREFERENCE_FILE_KEY</string>
+
+    <!-- Descripciones de imágenes -->
+    <string name="descriptionGazteluBiraLogo">Logo de Gaztelu Bira</string>
+    <string name="descriptionFootballBall">Imagen del balón de fútbol</string>
+    <string name="descriptionAssistIcon">Imagen del ícono de asistencia</string>
+    <string name="descriptionGamesIcon">Imagen del ícono de juegos</string>
+    <string name="descriptionMinusIcon">Imagen del ícono de resta</string>
+    <string name="descriptionPlusIcon">Imagen del ícono de suma</string>
+    <string name="descriptionMatchesStatsGoals">Imagen de estadísticas de goles</string>
+    <string name="descriptionMatchesStatsAssits">Imagen de estadísticas de asistencias</string>
+    <string name="descriptionMatchesStatsPlayers">Imagen de grupo de jugadores</string>
+    <string name="descriptionLogoLocal">Logotipo local</string>
+    <string name="descriptionLogoVisitor">Logotipo visitante</string>
+
+    <!-- Advertencias -->
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- Actividad de partidos -->
+    <string name="tvGamesTitle">Partidos jugados</string>
+    <string name="tvMatchesWin">Partidos ganados</string>
+    <string name="tvMatchesDraw">Partidos empatados</string>
+    <string name="tvMatchesLost">Partidos perdidos</string>
+    <string name="dash">-</string>
+    <string name="MVP">MVP</string>
+    <string name="voteMVP">Vota por tu MVP</string>
+    <string name="descriptionMVP">Imagen del ícono de MVP</string>
+    <string name="selectMVP">Selecciona tu MVP</string>
+    <string name="sendMVP">Enviar MVP</string>
+    <string name="MVPVotes">Votos para el MVP</string>
+    <string name="tvMVPVotesForTheMoment">Votos para el MVP por el momento</string>
+    <string name="btnClose">Cerrar</string>
+    <string name="fab_content_description">Representa una vista para invocar una acción</string>
+
+    <!-- SupaBase Strings -->
+    <string name="conexionErrorTitle">Error de conexión</string>
+    <string name="conexionErrorMessage">Hubo un error al conectarse a la base de datos</string>
+</resources>

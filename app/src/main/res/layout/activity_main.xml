@@ -27,6 +27,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@color/orange"
+        android:paddingHorizontal="10dp"
         android:text="@string/logOut"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

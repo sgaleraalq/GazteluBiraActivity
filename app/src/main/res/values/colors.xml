@@ -50,4 +50,5 @@
     <color name="clExpandableBackground">#BEB5ECE6</color>
     <color name="dark_gray">#A9A9A9</color>
     <color name="pbMatchesColor">#343B63</color>
+    <color name="accent">#E91E63</color>
 </resources>
