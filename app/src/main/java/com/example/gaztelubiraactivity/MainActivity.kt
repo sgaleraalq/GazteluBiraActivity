@@ -55,10 +55,11 @@ class MainActivity : ComponentActivity() {
         initUI()
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "InflateParams")
     private fun initUI() {
 //        Extract all the data from class
         runBlocking { SupabaseManager.getData() }
+//        startActivity.finish()
 
 //        Set up Logged tag in the upper part of the screen
         if (email != "Guest") {

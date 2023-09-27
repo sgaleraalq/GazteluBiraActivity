@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GazteluBiraActivity</string>
+    <string name="app_name">Gaztelu Bira</string>
     <string name="gazteluBira">Gaztelu Bira</string>
     <string name="league">Liga</string>
     <string name="btnMatches">Partidos</string>
@@ -26,7 +26,7 @@
     <string name="logInConnectionFail">No se pudo iniciar sesión debido a un problema de conexión</string>
     <string name="errorRegister">No se pudo registrar</string>
     <string name="noUsersToLink">Todos los jugadores ya han sido registrados</string>
-    <string name="btnGuest">Ingresar como invitado</string>
+    <string name="btnGuest">Entrar como invitado</string>
     <string name="tvGuest">Invitado</string>
     <string name="guestMessage">Ingresarás a la aplicación como invitado</string>
     <string name="notAbleToVote">Si haces clic en "Aceptar", no podrás votar</string>
@@ -36,7 +36,7 @@
 
     <!-- Actividad de jugadores -->
     <string name="tvNumberOfGoals">Goles</string>
-    <string name="tvNumberOfAssits">Asistencias</string>
+    <string name="tvNumberOfAssists">Asistencias</string>
     <string name="tvNumberOfMatches">Partidos</string>
     <string name="tvNumberOfPlayers">Jugadores</string>
     <string name="tvSortBy">Ordenar por</string>
@@ -71,7 +71,7 @@
     <string name="tvMatchesLost">Partidos perdidos</string>
     <string name="dash">-</string>
     <string name="MVP">MVP</string>
-    <string name="voteMVP">Vota por tu MVP</string>
+    <string name="voteMVP">Vota al MVP</string>
     <string name="descriptionMVP">Imagen del ícono de MVP</string>
     <string name="selectMVP">Selecciona tu MVP</string>
     <string name="sendMVP">Enviar MVP</string>
@@ -83,4 +83,9 @@
     <!-- SupaBase Strings -->
     <string name="conexionErrorTitle">Error de conexión</string>
     <string name="conexionErrorMessage">Hubo un error al conectarse a la base de datos</string>
+
+
+    <!--    Flags   -->
+    <string name="spanishFlag">Spanish Flag</string>
+    <string name="englishFlag">English Flag</string>
 </resources>

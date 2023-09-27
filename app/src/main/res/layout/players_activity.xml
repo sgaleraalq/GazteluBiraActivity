@@ -29,8 +29,8 @@
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="bottom"
             android:layout_marginStart="26dp"
             android:layout_marginBottom="8dp"
@@ -42,32 +42,33 @@
                 android:layout_height="wrap_content"
                 android:text="@string/gazteluBira"
                 android:textColor="@color/black"
-                android:textSize="40sp"
+                android:textSize="35sp"
                 android:textStyle="bold" />
 
             <View
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/tvSubtitlePlayers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="40dp"
+                android:paddingHorizontal="20dp"
+                android:textAlignment="textEnd"
+                android:text="@string/titlePlayers"
+                android:textColor="@color/subtitleColor"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llGazteluBira" />
 
         </LinearLayout>
 
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvSubtitlePlayers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="40dp"
-        android:paddingHorizontal="20dp"
-        android:text="@string/titlePlayers"
-        android:textColor="@color/subtitleColor"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llGazteluBira" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvStatsShown"
@@ -95,21 +96,23 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginTop="25dp"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvStatsShown">
 
         <TableLayout
             android:id="@+id/tlPlayersStats"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             tools:ignore="VisualLintBounds">
 
-            <TableRow tools:ignore="UselessParent">
+            <TableRow tools:ignore="UselessParent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tvPosition"
@@ -123,24 +126,26 @@
 
                 <TextView
                     android:id="@+id/tvPlayerName"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:textColor="@color/black"
-                    android:gravity="center"
+                    android:singleLine="true"
                     android:background="@drawable/header_background"
+                    android:gravity="center"
                     android:paddingHorizontal="20dp"
                     android:text="@string/tvPlayerName"
                     android:textAllCaps="true"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/tvPlayerStats"
-                    android:layout_width="120dp"
+                    android:singleLine="true"
+                    android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:gravity="center"
                     android:background="@drawable/header_background"
+                    android:gravity="center"
                     android:paddingHorizontal="20dp"
-                    android:text="@string/tvNumberOfGoals"
+                    android:text="@string/tvNumberOfMatches"
                     android:textAllCaps="true"
                     android:textStyle="bold" />
             </TableRow>

@@ -2,7 +2,6 @@ package com.example.gaztelubiraactivity
 
 import android.app.Dialog
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -21,7 +20,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.util.Locale
 
 @Suppress("DeferredResultUnused")
 class LogInActivity : AppCompatActivity() {
@@ -46,13 +44,7 @@ class LogInActivity : AppCompatActivity() {
 
         llLogIn = findViewById(R.id.llLogIn)
 
-        // Cambiar el idioma de la aplicación a español
-        val locale = Locale("es")
-        Locale.setDefault(locale)
-        val configuration = Configuration()
-        configuration.setLocale(locale)
-        resources.updateConfiguration(configuration, resources.displayMetrics)
-
+//        setDefaultLanguage(this)
         session()
         initComponents()
         initListeners()
@@ -97,7 +89,6 @@ class LogInActivity : AppCompatActivity() {
                 showAlert(R.string.errorLogIn, R.string.logInFail)
             }
         }
-
         btnGuest.setOnClickListener { showMainAsGuest() }
     }
 
@@ -140,7 +131,7 @@ class LogInActivity : AppCompatActivity() {
         etPassword.text.clear()
     }
     private fun showMain(email: String, provider: ProviderType) {
-        val intent = Intent(this, MainActivity::class.java).apply {
+        val intent = Intent(this, StartActivity::class.java).apply {
             putExtra("email", email)
             putExtra("provider", provider.name)
         }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GazteluBiraActivity</string>
+    <string name="app_name">Gaztelu Bira</string>
     <string name="gazteluBira">Gaztelu Bira</string>
     <string name="league">League</string>
     <string name="btnMatches">Matches</string>
@@ -37,14 +37,14 @@
     <!--    Players Activity    -->
     <!--    Main strings    -->
     <string name="tvNumberOfGoals">Goals</string>
-    <string name="tvNumberOfAssits">Assists</string>
+    <string name="tvNumberOfAssists">Assists</string>
     <string name="tvNumberOfMatches">Matches</string>
     <string name="tvNumberOfPlayers">Players</string>
     <string name="tvSortBy">Sort by</string>
 
     <string name="ivLogoDescription">Gaztelu Bira Logo</string>
     <string name="titlePlayers">Players stats</string>
-    <string name="tvPlayerName">Player name</string>
+    <string name="tvPlayerName">Player</string>
     <string name="tvPosition">Position</string>
     <string name="tvProportionMatchesGoals">Goals %</string>
     <string name="prefsFile">com.example.gaztelubiraactivity.PREFERENCE_FILE_KEY</string>
@@ -86,4 +86,8 @@
     <!--    SupaBase Strings    -->
     <string name="conexionErrorTitle">Conexion error</string>
     <string name="conexionErrorMessage">There was an error connecting to the database</string>
+
+    <!--    Flags   -->
+    <string name="spanishFlag">Spanish Flag</string>
+    <string name="englishFlag">English Flag</string>
 </resources>

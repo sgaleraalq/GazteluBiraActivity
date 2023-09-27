@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainBackground"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/tvLoggedAs"
@@ -24,10 +25,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:background="@color/orange"
         android:paddingHorizontal="10dp"
+        android:textSize="10sp"
         android:text="@string/logOut"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,63 +53,50 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvGazteluBira"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        app:cardBackgroundColor="@color/cvBackground"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvGazteluLogo">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/tvGazteluBiraBackground"
-            android:padding="10dp"
-            android:text="@string/gazteluBira"
-            android:textAllCaps="true"
-            android:textSize="50sp"
-            android:textStyle="bold" />
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvPoints"
+    <TextView
+        android:id="@+id/tvGazteluBira"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@color/tvGazteluBiraBackground"
+        android:padding="10dp"
+        android:text="@string/gazteluBira"
+        android:textAllCaps="true"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvGazteluBira">
-
-        <TextView
-            android:id="@+id/tvPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:paddingHorizontal="30dp"
-            android:paddingVertical="10dp"
-            android:textAllCaps="true"
-            android:textColor="@color/tvPoints"
-            android:textSize="15sp"
-            android:background="@color/colorPrimary"/>
+        app:layout_constraintTop_toBottomOf="@+id/cvGazteluLogo" />
 
 
-    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/tvPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center"
+        android:background="@color/colorPrimary"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="10dp"
+        android:textAllCaps="true"
+        android:textColor="@color/tvPoints"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGazteluBira" />
+
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvPoints">
+        app:layout_constraintTop_toBottomOf="@+id/tvPoints">
 
         <Button
             android:id="@+id/btnMatches"

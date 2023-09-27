@@ -43,7 +43,7 @@ class PlayersActivity : ComponentActivity() {
     }
 
     private fun initUI() {
-        getData()
+//        getData()
     }
 
     private fun initComponents() {

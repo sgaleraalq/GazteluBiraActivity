@@ -121,7 +121,7 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             }
 
             "Assists" -> {
-                dialogTitle.text = getString(itemView.context, R.string.tvNumberOfAssits)
+                dialogTitle.text = getString(itemView.context, R.string.tvNumberOfAssists)
                 dialogImage.setImageResource(R.drawable.football_shoe)
                 dialogList.adapter =
                     ArrayAdapter(itemView.context, R.layout.players_in_list, stats.assits.toList())

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="200dp"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:background="@drawable/stats_dialog_border"
     android:orientation="vertical">
@@ -17,7 +17,8 @@
         android:textSize="30sp" />
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
         android:layout_height="4dp"
         android:layout_marginHorizontal="20dp"
         android:background="@color/white" />
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:divider="@drawable/divider_dialog"
         android:paddingHorizontal="16dp"
+        android:layout_gravity="center"
         android:showDividers="middle"
         android:paddingBottom="10dp">
 
@@ -46,7 +48,7 @@
             android:layout_height="wrap_content"
             android:buttonTint="@color/white"
             android:padding="16dp"
-            android:text="@string/tvNumberOfAssits"
+            android:text="@string/tvNumberOfAssists"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
