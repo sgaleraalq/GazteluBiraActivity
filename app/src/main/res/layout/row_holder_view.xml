@@ -8,16 +8,19 @@
     <TextView
         android:id="@+id/tvPosition"
         style="@style/tvCell"
-        tools:text="Haaland" />
+        android:layout_weight="1.2"
+        tools:text="1" />
 
     <TextView
         android:id="@+id/tvPlayerName"
         style="@style/tvCell"
+        android:layout_weight="2.2"
         tools:text="Haaland" />
 
     <TextView
         android:id="@+id/tvPlayerStats"
         style="@style/tvCell"
+        android:layout_weight="1.9"
         tools:text="10" />
 
 </TableRow>

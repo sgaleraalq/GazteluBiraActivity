@@ -26,6 +26,7 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.coroutines.runBlocking
@@ -311,6 +312,11 @@ class MatchesStatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         barDataSet.valueTextColor = Color.BLACK
         barDataSet.valueTextSize = 16f
 
+        barDataSet.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return value.toInt().toString()
+            }
+        }
         // Configurar el fondo del gráfico como transparente
         barChart.setBackgroundColor(Color.TRANSPARENT)
 

@@ -95,11 +95,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginEnd="50dp"
+        android:layout_height="450dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="25dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvStatsShown">
 
@@ -110,14 +109,12 @@
             android:layout_gravity="center_horizontal"
             tools:ignore="VisualLintBounds">
 
-            <TableRow tools:ignore="UselessParent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+            <TableRow tools:ignore="UselessParent">
                 <TextView
                     android:id="@+id/tvPosition"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
+                    android:layout_weight="1.2"
                     android:layout_gravity="center"
                     android:background="@drawable/custom_position_header"
                     android:paddingHorizontal="20dp"
@@ -126,8 +123,9 @@
 
                 <TextView
                     android:id="@+id/tvPlayerName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
+                    android:layout_weight="2.2"
                     android:singleLine="true"
                     android:background="@drawable/header_background"
                     android:gravity="center"
@@ -140,14 +138,16 @@
                 <Button
                     android:id="@+id/tvPlayerStats"
                     android:singleLine="true"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
+                    android:layout_weight="1.9"
                     android:background="@drawable/header_background"
                     android:gravity="center"
                     android:paddingHorizontal="20dp"
                     android:text="@string/tvNumberOfMatches"
                     android:textAllCaps="true"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="VisualLintButtonSize" />
             </TableRow>
         </TableLayout>
     </ScrollView>

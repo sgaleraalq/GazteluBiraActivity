@@ -14,6 +14,7 @@ import kotlinx.serialization.json.Json
 import android.app.Dialog
 import android.widget.RadioButton
 import java.text.DecimalFormat
+import java.util.Locale
 
 
 class PlayersActivity : ComponentActivity() {
@@ -43,7 +44,7 @@ class PlayersActivity : ComponentActivity() {
     }
 
     private fun initUI() {
-//        getData()
+        getData()
     }
 
     private fun initComponents() {
@@ -121,7 +122,10 @@ class PlayersActivity : ComponentActivity() {
     }
 
     private fun updateProportions(){
-        val decimalFormat = DecimalFormat("#.##")
+        val currentLocale = Locale.getDefault()
+        val formatPattern = if (currentLocale.language == "es") "#,##" else "#.##"
+        val decimalFormat = DecimalFormat(formatPattern)
+
         for (player in playerStats){
             val goals = player.goals
             val gamesPlayed = player.gamesPlayed
@@ -137,7 +141,6 @@ class PlayersActivity : ComponentActivity() {
             "assists" -> playerStats.sortedByDescending { it.assists }
             "gamesPlayed" -> playerStats.sortedByDescending { it.gamesPlayed }
             "proportionMatchesGoals" -> playerStats.sortedByDescending { it.proportionMatchesGoals }
-//            TODO MVP
             else -> playerStats.sortedByDescending { it.mvp }
         }
         insertPlayersToTable(value)
